@@ -125,7 +125,7 @@
             
             <div class="input-group">
                 <label class="input-label">输入通行码开始测试</label>
-                <input type="text" class="input-code" id="code" placeholder="请输入通行码" maxlength="20">
+                <input type="text" class="input-code" id="code" placeholder="任意字符即可体验" maxlength="20" value="weak2026">
                 <div class="error" id="error">通行码错误，请检查后重试</div>
             </div>
             
@@ -151,35 +151,16 @@
             </div>
             
             <div class="footer">
-                基于戴尔·卡耐基《人性的弱点》设计
+                基于戴尔·卡内基《人性的弱点》设计
             </div>
         </div>
     </div>
     
     <script>
     function startTest() {
-        const code = document.getElementById('code').value.trim();
-        if (!code) {
-            document.getElementById('error').style.display = 'block';
-            document.getElementById('error').textContent = '请输入通行码';
-            return;
-        }
-        
-        // Verify code
-        fetch('/api/verify_week_code?code=' + encodeURIComponent(code))
-            .then(r => r.json())
-            .then(data => {
-                if (data.valid) {
-                    window.location.href = '/test?code=' + encodeURIComponent(code);
-                } else {
-                    document.getElementById('error').style.display = 'block';
-                    document.getElementById('error').textContent = data.message || '通行码错误';
-                }
-            })
-            .catch(() => {
-                // For demo, allow any code
-                window.location.href = '/test?code=' + encodeURIComponent(code);
-            });
+        const code = document.getElementById('code').value.trim() || 'weak2026';
+        // Demo mode: 直接跳转，不验证
+        window.location.href = '/test?code=' + encodeURIComponent(code);
     }
     
     document.getElementById('code').addEventListener('keypress', e => {
