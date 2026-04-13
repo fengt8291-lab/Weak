@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你的人性弱点诊断报告</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans SC', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(233,69,96,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-icon { font-size: 60px; margin-bottom: 20px; }
+        .hero-title {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle { font-size: 14px; color: #8892b0; }
+        
+        /* Main Weakness Card */
+        .weakness-card {
+            background: linear-gradient(145deg, rgba(233,69,96,0.15), rgba(233,69,96,0.05));
+            border: 1px solid rgba(233,69,96,0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .weakness-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+        }
+        .weakness-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .weakness-icon { font-size: 48px; }
+        .weakness-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #e94560;
+        }
+        .weakness-desc { font-size: 14px; color: #8892b0; margin-top: 5px; }
+        
+        /* Dimension Score Bar */
+        .score-section { margin: 30px 0; }
+        .score-item {
+            margin: 15px 0;
+        }
+        .score-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: #ccd6f6;
+        }
+        .score-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .score-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+        .score-fill.danger { background: linear-gradient(90deg, #e94560, #ff6b6b); }
+        .score-fill.warning { background: linear-gradient(90deg, #f39c12, #f1c40f); }
+        .score-fill.safe { background: linear-gradient(90deg, #2ecc71, #27ae60); }
+        
+        /* Quote Box */
+        .quote-box {
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid #e94560;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        .quote-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #ccd6f6;
+            font-style: italic;
+        }
+        .quote-author {
+            font-size: 12px;
+            color: #8892b6;
+            margin-top: 10px;
+            text-align: right;
+        }
+        
+        /* Section */
+        .section {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-content {
+            font-size: 14px;
+            line-height: 1.9;
+            color: #a8b2d1;
+        }
+        .section-content li { margin: 10px 0; padding-left: 10px; }
+        
+        /* Book Recommendation */
+        .book-card {
+            display: flex;
+            gap: 15px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .book-cover {
+            width: 60px;
+            height: 80px;
+            background: linear-gradient(135deg, #e94560, #c0392b);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .book-info { flex: 1; }
+        .book-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+        .book-desc { font-size: 12px; color: #8892b0; line-height: 1.6; }
+        
+        /* Action Tips */
+        .action-card {
+            background: linear-gradient(145deg, rgba(46,204,113,0.1), rgba(46,204,113,0.05));
+            border: 1px solid rgba(46,204,113,0.2);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .action-num {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: #2ecc71;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+        .action-text { font-size: 14px; color: #ccd6f6; }
+        
+        /* Secondary Weakness */
+        .secondary-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .secondary-icon { font-size: 32px; }
+        .secondary-info { flex: 1; }
+        .secondary-name { font-size: 16px; font-weight: 600; }
+        .secondary-desc { font-size: 12px; color: #8892b0; }
+        .secondary-score { font-size: 20px; font-weight: 700; color: #f39c12; }
+        
+        /* Share Section */
+        .share-section {
+            text-align: center;
+            padding: 30px 0;
+        }
+        .share-title { font-size: 16px; color: #8892b0; margin-bottom: 15px; }
+        .share-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #e94560, #c0392b);
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(233,69,96,0.3);
+        }
+        
+        /* Final Quote */
+        .final-quote {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #ccd6f6;
+            line-height: 1.8;
+        }
+        
+        /* Hidden AI Report */
+        #ai-report { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="hero-icon">🔍</div>
+            <h1 class="hero-title">你的人性弱点诊断报告</h1>
+            <p class="hero-subtitle">基于卡内基《人性的弱点》| AI深度分析</p>
+        </div>
+        
+        <!-- Dimension Scores -->
+        <div class="score-section" id="dimension-scores"></div>
+        
+        <!-- Main Weakness -->
+        <div class="weakness-card">
+            <div class="weakness-header">
+                <span class="weakness-icon" id="main-icon">🔍</span>
+                <div>
+                    <div class="weakness-name" id="main-name">批评型</div>
+                    <div class="weakness-desc" id="main-desc">你的主要人际障碍</div>
+                </div>
+            </div>
+            <div class="quote-box">
+                <div class="quote-text" id="carnegie-quote">
+                    "99%的情况下，不管犯多严重的错误，人们都不会责备自己。
+                    批评带来的并不是改变，而是怨恨。"
+                </div>
+                <div class="quote-author">— 戴尔·卡耐基《人性的弱点》</div>
+            </div>
+        </div>
+        
+        <!-- Why This Happens -->
+        <div class="section">
+            <div class="section-title">🧠 为什么你会形成这个弱点</div>
+            <div class="section-content" id="why-section">
+                加载中...
+            </div>
+        </div>
+        
+        <!-- Daily Manifestations -->
+        <div class="section">
+            <div class="section-title">📋 日常生活中你是这样的</div>
+            <div class="section-content" id="daily-section">
+                加载中...
+            </div>
+        </div>
+        
+        <!-- How to Change -->
+        <div class="section">
+            <div class="section-title">✨ 卡内基的改变建议</div>
+            <div id="action-tips"></div>
+        </div>
+        
+        <!-- Secondary Weakness -->
+        <div class="section" id="secondary-section" style="display:none;">
+            <div class="section-title">🔔 你的次要弱点</div>
+            <div id="secondary-weakness"></div>
+        </div>
+        
+        <!-- Book Recommendation -->
+        <div class="section">
+            <div class="section-title">📚 必读经典</div>
+            <div class="book-card">
+                <div class="book-cover">📖</div>
+                <div class="book-info">
+                    <div class="book-title">《人性的弱点》</div>
+                    <div class="book-desc">戴尔·卡耐基 | 全球销量超9000万册的人际交往圣经。书中揭示了人际关系的六大核心弱点，并提供了具体可行的改变方法。</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Final Quote -->
+        <div class="final-quote" id="final-quote">
+            "认识自己，才能改变自己。<br>改变自己，才能改变你与世界的距离。"
+        </div>
+        
+        <!-- Share -->
+        <div class="share-section">
+            <div class="share-title">戳中你的痛点了吗？转发给朋友看看</div>
+            <button class="share-btn" onclick="copyShare()">📤 复制分享文案</button>
+        </div>
+    </div>
+    
+    <!-- AI Report (hidden) -->
+    <div id="ai-report">{{AI_REPORT}}</div>
+    
+    <script>
+    const dimensionData = {
+        criticism: { name: '批评型', icon: '🔍', color: '#e74c3c', 
+            why: '你可能在成长过程中被过度批评，或者习惯了用挑剔来表达关心。这让你难以看到他人的优点。',
+            daily: ['总觉得别人的方案不够好', '忍不住纠正别人的小错误', '别人成功后你第一个想到的是挑刺'],
+            actions: [
+                '下次想批评时，先强迫自己说出对方的一个优点',
+                '把"你这里不对"改成"如果这样会不会更好"',
+                '每天睡前写下3件今天你欣赏的人的的具体事例'
+            ]},
+        indifference: { name: '冷漠型', icon: '❄️', color: '#95a5a6',
+            why: '你可能早年情感需求未被满足，养成了"不指望任何人"的自我保护模式。',
+            daily: ['朋友倾诉时你总想快点结束', '很少主动关心别人的近况', '觉得别人的事跟我有什么关系'],
+            actions: [
+                '每天主动问一个人"你今天怎么样"并认真听',
+                '朋友分享时先重复对方的话再回应"那确实..."',
+                '每周给一个人发消息只说"想到你了"'
+            ]},
+        narcissism: { name: '自恋型', icon: '🪞', color: '#f39c12',
+            why: '你可能缺乏真正的自信，需要通过别人的关注来确认自己的价值。',
+            daily: ['聊天时总把话题引到自己身上', '别人说话你都在想怎么接话', '听到别人的好消息只觉得烦'],
+            actions: [
+                '每次说话前先问自己"对方有兴趣听吗"',
+                '朋友说话时不要想怎么回应，而是真正理解对方在说什么',
+                '每周练习一次：只问问题，让对方说30分钟'
+            ]},
+        forgetful: { name: '记不住型', icon: '🧠', color: '#9b59b6',
+            why: '你可能习惯活在自己的世界里，对他人的细节不够上心。记住别人是一种尊重。',
+            daily: ['经常忘记别人的名字', '上次见面说了什么都不记得', '从不主动记住别人的重要日期'],
+            actions: [
+                '加上微信立刻改备注，写上职业+特点',
+                '每次见面记住一个细节，下次提起',
+                '把重要联系人的生日设为日历提醒'
+            ]},
+        defensive: { name: '防御型', icon: '🛡️', color: '#e67e22',
+            why: '你可能把"认错"等于"承认自己不好"，把"被反驳"等于"被攻击"。',
+            daily: ['别人一说不同意见你就想反驳', '即使知道自己错了也要硬撑', '讨论问题时必须赢'],
+            actions: [
+                '听到不同意见先说"你说得有道理"再表达自己',
+                '每天允许自己说一次"你说得对"',
+                '遇到分歧时先问自己"我要的是对还是关系"'
+            ]},
+        taking: { name: '索取型', icon: '🤲', color: '#1abc9c',
+            why: '你可能把关系当成交易，觉得"我对别人好"就要立刻得到回报。',
+            daily: ['帮忙前先想能得到什么', '联系很久没见的人是因为有事相求', '觉得朋友应该无条件帮自己'],
+            actions: [
+                '每周做一件不求回报的小事',
+                '帮人后不要提，也不要期待感谢',
+                '先付出再想回报，把"我能帮什么"放在"我能得什么"之前'
+            ]}
+    };
+    
+    function getScores() {
+        const params = new URLSearchParams(window.location.search);
+        const result = {};
+        for (let i = 1; i <= 25; i++) {
+            const val = params.get('q' + i);
+            result[i] = val ? parseInt(val) : 0;
+        }
+        return result;
+    }
+    
+    function calculateDimensions(scores) {
+        const dims = {};
+        const dimOrder = ['criticism', 'indifference', 'narcissism', 'forgetful', 'defensive', 'taking'];
+        dimOrder.forEach(d => dims[d] = 0);
+        
+        const dimMap = {
+            1:'criticism', 2:'indifference', 3:'narcissism', 4:'forgetful',
+            5:'criticism', 6:'defensive', 7:'taking', 8:'indifference',
+            9:'narcissism', 10:'criticism', 11:'forgetful', 12:'defensive',
+            13:'indifference', 14:'narcissism', 15:'taking', 16:'criticism',
+            17:'forgetful', 18:'defensive', 19:'indifference', 20:'narcissism',
+            21:'taking', 23:'forgetful', 24:'defensive', 25:'taking'
+        };
+        
+        for (let q = 1; q <= 25; q++) {
+            if (q === 22) continue; // skip balance question
+            const dim = dimMap[q];
+            if (dim && scores[q] !== undefined) {
+                dims[dim] += scores[q];
+            }
+        }
+        return dims;
+    }
+    
+    function renderReport() {
+        const scores = getScores();
+        const dims = calculateDimensions(scores);
+        
+        // Sort dimensions by score
+        const sorted = Object.entries(dims).sort((a, b) => b[1] - a[1]);
+        const main = sorted[0];
+        const secondary = sorted[1];
+        
+        // Render dimension scores
+        const scoreHtml = sorted.map(([dim, score]) => {
+            const d = dimensionData[dim];
+            let level = 'danger';
+            if (score <= 2) level = 'safe';
+            else if (score <= 5) level = 'warning';
+            const pct = Math.min(score / 8 * 100, 100);
+            return `
+                <div class="score-item">
+                    <div class="score-label">
+                        <span>${d.icon} ${d.name}</span>
+                        <span>${score}分</span>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill ${level}" style="width:${pct}%"></div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        document.getElementById('dimension-scores').innerHTML = scoreHtml;
+        
+        // Main weakness
+        const mainData = dimensionData[main[0]];
+        document.getElementById('main-icon').textContent = mainData.icon;
+        document.getElementById('main-name').textContent = mainData.name;
+        document.getElementById('main-desc').textContent = mainData.description;
+        document.getElementById('why-section').innerHTML = mainData.why;
+        document.getElementById('daily-section').innerHTML = '<li>' + mainData.daily.join('</li><li>') + '</li>';
+        
+        // Action tips
+        const actionHtml = mainData.actions.map((a, i) => `
+            <div class="action-card">
+                <span class="action-num">${i+1}</span>
+                <span class="action-text">${a}</span>
+            </div>
+        `).join('');
+        document.getElementById('action-tips').innerHTML = actionHtml;
+        
+        // Secondary weakness
+        if (secondary[1] > 0) {
+            document.getElementById('secondary-section').style.display = 'block';
+            const secData = dimensionData[secondary[0]];
+            document.getElementById('secondary-weakness').innerHTML = `
+                <div class="secondary-card">
+                    <span class="secondary-icon">${secData.icon}</span>
+                    <div class="secondary-info">
+                        <div class="secondary-name">${secData.name}</div>
+                        <div class="secondary-desc">${secData.description}</div>
+                    </div>
+                    <span class="secondary-score">${secondary[1]}分</span>
+                </div>
+            `;
+        }
+        
+        // Insert AI report if available
+        const aiReport = document.getElementById('ai-report').textContent;
+        if (aiReport && aiReport.trim()) {
+            const aiSection = document.createElement('div');
+            aiSection.className = 'section';
+            aiSection.innerHTML = `
+                <div class="section-title">🤖 AI深度解读</div>
+                <div class="section-content" style="white-space:pre-wrap;">${aiReport}</div>
+            `;
+            document.querySelector('.weakness-card').after(aiSection);
+        }
+    }
+    
+    function copyShare() {
+        const mainName = document.getElementById('main-name').textContent;
+        const quote = document.getElementById('carnegie-quote').textContent.trim();
+        const shareText = `🔍 我在【测测你的人性弱点】中测出了我的致命短板...\n\n我的弱点是：${mainName}\n\n"${quote.substring(0, 50)}..."\n\n卡内基说这是人际关系的最大杀手\n快来测测你的 ↓\n${window.location.origin}`;
+        navigator.clipboard.writeText(shareText).then(() => {
+            alert('已复制！去小红书分享吧~');
+        });
+    }
+    
+    renderReport();
+    </script>
+</body>
+</html>
