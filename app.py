@@ -69,7 +69,8 @@ def result():
             except:
                 answers[i] = 0
     
-    scores = calculate_scores(answers)
+    # Frontend handles all scoring
+    scores = {dim: 0 for dim in ["criticism","indifference","narcissism","forgetful","defensive","taking"]}
     
     try:
         conn = get_db()
