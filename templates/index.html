@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测测你的人性弱点 | 卡内基AI测试</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans SC', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        .container {
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .shadow { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+        .shadow::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(233,69,96,0.12) 0%, transparent 70%);
+        }
+        .content { position: relative; z-index: 1; }
+        .icon { font-size: 80px; margin-bottom: 30px; }
+        .title {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #8892b0;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        .input-group {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .input-label {
+            font-size: 14px;
+            color: #ccd6f6;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .input-code {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 18px;
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #fff;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .input-code:focus { border-color: #e94560; }
+        .input-code::placeholder { color: #5a6a8a; }
+        .btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #e94560, #c0392b);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(233,69,96,0.3);
+        }
+        .error { color: #e94560; font-size: 13px; margin-top: 10px; display: none; }
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        .feature {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 15px;
+        }
+        .feature-icon { font-size: 24px; margin-bottom: 8px; }
+        .feature-text { font-size: 13px; color: #8892b0; }
+        .footer { margin-top: 40px; font-size: 12px; color: #5a6a8a; }
+    </style>
+</head>
+<body>
+    <div class="shadow"></div>
+    <div class="container">
+        <div class="content">
+            <div class="icon">🔍</div>
+            <h1 class="title">测测你的人性弱点</h1>
+            <p class="subtitle">
+                基于卡内基《人性的弱点》<br>
+                25道场景测试，诊断你在人际交往中的致命短板
+            </p>
+            
+            <div class="input-group">
+                <label class="input-label">输入通行码开始测试</label>
+                <input type="text" class="input-code" id="code" placeholder="请输入通行码" maxlength="20">
+                <div class="error" id="error">通行码错误，请检查后重试</div>
+            </div>
+            
+            <button class="btn" onclick="startTest()">开始测试 →</button>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-text">精准诊断6大弱点维度</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📖</div>
+                    <div class="feature-text">卡内基方法论指导改变</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-text">AI个性化深度报告</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔄</div>
+                    <div class="feature-text">可分享结果给朋友</div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                基于戴尔·卡耐基《人性的弱点》设计
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    function startTest() {
+        const code = document.getElementById('code').value.trim();
+        if (!code) {
+            document.getElementById('error').style.display = 'block';
+            document.getElementById('error').textContent = '请输入通行码';
+            return;
+        }
+        
+        // Verify code
+        fetch('/api/verify_week_code?code=' + encodeURIComponent(code))
+            .then(r => r.json())
+            .then(data => {
+                if (data.valid) {
+                    window.location.href = '/test?code=' + encodeURIComponent(code);
+                } else {
+                    document.getElementById('error').style.display = 'block';
+                    document.getElementById('error').textContent = data.message || '通行码错误';
+                }
+            })
+            .catch(() => {
+                // For demo, allow any code
+                window.location.href = '/test?code=' + encodeURIComponent(code);
+            });
+    }
+    
+    document.getElementById('code').addEventListener('keypress', e => {
+        if (e.key === 'Enter') startTest();
+    });
+    </script>
+</body>
+</html>
