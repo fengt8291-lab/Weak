@@ -94,7 +94,6 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(233,69,96,0.3);
         }
-        .error { color: #e94560; font-size: 13px; margin-top: 10px; display: none; }
         .features {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -125,8 +124,7 @@
             
             <div class="input-group">
                 <label class="input-label">输入通行码开始测试</label>
-                <input type="text" class="input-code" id="code" placeholder="任意字符即可体验" maxlength="20" value="weak2026">
-                <div class="error" id="error">通行码错误，请检查后重试</div>
+                <input type="text" class="input-code" id="code" placeholder="输入 test 开始体验" maxlength="20" value="test">
             </div>
             
             <button class="btn" onclick="startTest()">开始测试 →</button>
@@ -151,15 +149,15 @@
             </div>
             
             <div class="footer">
-                基于戴尔·卡内基《人性的弱点》设计
+                基于戴尔·卡耐基《人性的弱点》设计
             </div>
         </div>
     </div>
     
     <script>
     function startTest() {
-        const code = document.getElementById('code').value.trim() || 'weak2026';
-        // Demo mode: 直接跳转，不验证
+        const code = document.getElementById('code').value.trim() || 'test';
+        // 直接跳转，无需验证
         window.location.href = '/test?code=' + encodeURIComponent(code);
     }
     
