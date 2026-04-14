@@ -3,167 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>测测你的人性弱点 | 卡耐基AI测试</title>
+    <title>测测你的人性弱点 | 卡耐基人格测试</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Noto Sans SC', -apple-system, sans-serif;
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #FAFAF8;
             min-height: 100vh;
+            color: #1a1a1a;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
+            -webkit-font-smoothing: antialiased;
         }
         .container {
-            max-width: 500px;
+            max-width: 480px;
             width: 90%;
+            padding: 60px 24px 80px;
             text-align: center;
-            padding: 40px 20px;
         }
-        .shadow { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; overflow: hidden; z-index: 0; }
-        .shadow::before {
-            content: '';
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(233,69,96,0.12) 0%, transparent 70%);
+        /* Subtle decorative line */
+        .deco-line {
+            width: 40px;
+            height: 1px;
+            background: #c9a84c;
+            margin: 0 auto 40px;
         }
-        .content { position: relative; z-index: 1; }
-        .icon { font-size: 80px; margin-bottom: 30px; }
+        /* Eye-brow label */
+        .eyebrow {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #aaa;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
         .title {
-            font-size: 32px;
-            font-weight: 900;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #e94560, #ff6b6b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 44px;
+            font-weight: 700;
+            line-height: 1.15;
+            color: #111;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+        .title em {
+            font-style: italic;
+            color: #c9a84c;
         }
         .subtitle {
-            font-size: 16px;
-            color: #8892b0;
-            margin-bottom: 40px;
-            line-height: 1.6;
+            font-size: 14px;
+            color: #999;
+            line-height: 1.8;
+            margin-bottom: 48px;
+            font-weight: 300;
         }
-        .input-group {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 20px;
+        .subtitle strong {
+            color: #555;
+            font-weight: 500;
+        }
+        /* Input Card */
+        .input-card {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.07);
+            border-radius: 20px;
+            padding: 28px 24px;
             margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
         .input-label {
-            font-size: 14px;
-            color: #ccd6f6;
-            margin-bottom: 15px;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #aaa;
+            margin-bottom: 14px;
+            font-weight: 500;
             display: block;
         }
         .input-code {
             width: 100%;
-            padding: 15px 20px;
+            padding: 14px 20px;
             font-size: 18px;
+            font-family: 'Inter', sans-serif;
             text-align: center;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            color: #fff;
+            background: #FAFAF8;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 10px;
+            color: #1a1a1a;
             outline: none;
-            transition: border-color 0.3s;
+            transition: border-color 0.2s;
+            letter-spacing: 0.05em;
         }
-        .input-code:focus { border-color: #e94560; }
-        .input-code::placeholder { color: #5a6a8a; }
-        .btn {
+        .input-code:focus { border-color: #c9a84c; }
+        .input-code::placeholder { color: #ccc; letter-spacing: 0; }
+        /* Primary Button */
+        .btn-primary {
             width: 100%;
             padding: 16px;
-            font-size: 16px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
             font-weight: 600;
-            background: linear-gradient(135deg, #e94560, #c0392b);
+            background: #111;
             color: #fff;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: background 0.2s, transform 0.2s;
+            letter-spacing: 0.02em;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(233,69,96,0.3);
-        }
+        .btn-primary:hover { background: #333; transform: translateY(-1px); }
+        .btn-primary:active { transform: translateY(0); }
+        /* Feature Grid */
         .features {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 12px;
+            margin-top: 40px;
             text-align: left;
         }
         .feature {
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            padding: 15px;
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 14px;
+            padding: 18px 16px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
         }
-        .feature-icon { font-size: 24px; margin-bottom: 8px; }
-        .feature-text { font-size: 13px; color: #8892b0; }
-        .footer { margin-top: 40px; font-size: 12px; color: #5a6a8a; }
+        .feature-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .feature-desc {
+            font-size: 12px;
+            color: #aaa;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        .feature-rule {
+            width: 20px;
+            height: 1px;
+            background: #c9a84c;
+            margin-bottom: 8px;
+        }
+        /* Footer */
+        .footer {
+            margin-top: 48px;
+            font-size: 11px;
+            color: #ccc;
+            line-height: 1.8;
+        }
+        .footer strong { color: #aaa; font-weight: 400; }
     </style>
 </head>
 <body>
-    <div class="shadow"></div>
-    <div class="container">
-        <div class="content">
-            <div class="icon">🔍</div>
-            <h1 class="title">测测你的人性弱点</h1>
-            <p class="subtitle">
-                基于卡耐基《人性的弱点》<br>
-                25道场景测试，诊断你在人际交往中的致命短板
-            </p>
-            
-            <div class="input-group">
-                <label class="input-label">输入通行码开始测试</label>
-                <input type="text" class="input-code" id="code" placeholder="输入 test 开始体验" maxlength="20" value="test">
-            </div>
-            
-            <button class="btn" onclick="startTest()">开始测试 →</button>
-            
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-icon">🎯</div>
-                    <div class="feature-text">精准诊断6大弱点维度</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">📖</div>
-                    <div class="feature-text">卡耐基方法论指导改变</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🤖</div>
-                    <div class="feature-text">AI个性化深度报告</div>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🔄</div>
-                    <div class="feature-text">可分享结果给朋友</div>
-                </div>
-            </div>
-            
-            <div class="footer">
-                基于戴尔·卡耐基《人性的弱点》设计
-            </div>
+<div class="container">
+    <div class="deco-line"></div>
+    <div class="eyebrow">Carnegie · 人格诊断</div>
+    <h1 class="title">测测你的<br><em>人性弱点</em></h1>
+    <p class="subtitle">
+        基于卡耐基《人性的弱点》<br>
+        25道真实场景测试 · <strong>6大维度深度分析</strong>
+    </p>
+
+    <div class="input-card">
+        <label class="input-label">输入通行码开始测试</label>
+        <input type="text" class="input-code" id="code" placeholder="输入 test 开始体验" maxlength="20" value="test">
+    </div>
+
+    <button class="btn-primary" onclick="startTest()">开始测试 →</button>
+
+    <div class="features">
+        <div class="feature">
+            <div class="feature-rule"></div>
+            <div class="feature-title">6大维度</div>
+            <div class="feature-desc">精准诊断你在人际交往中的核心短板</div>
+        </div>
+        <div class="feature">
+            <div class="feature-rule"></div>
+            <div class="feature-title">卡耐基理论</div>
+            <div class="feature-desc">基于经典方法论的行为模式分析</div>
+        </div>
+        <div class="feature">
+            <div class="feature-rule"></div>
+            <div class="feature-title">可分享报告</div>
+            <div class="feature-desc">生成专属结果卡片，分享给朋友</div>
+        </div>
+        <div class="feature">
+            <div class="feature-rule"></div>
+            <div class="feature-title">深度建议</div>
+            <div class="feature-desc">卡耐基原文指导，每条建议可执行</div>
         </div>
     </div>
-    
-    <script>
-    function startTest() {
-        const code = document.getElementById('code').value.trim() || 'test';
-        // 直接跳转，无需验证
-        window.location.href = '/test?code=' + encodeURIComponent(code);
-    }
-    
-    document.getElementById('code').addEventListener('keypress', e => {
-        if (e.key === 'Enter') startTest();
-    });
-    </script>
+
+    <div class="footer">
+        基于 <strong>戴尔·卡耐基</strong>《人性的弱点》设计<br>
+        测测你的人际盲点 ↓
+    </div>
+</div>
+
+<script>
+function startTest() {
+    const code = document.getElementById('code').value.trim() || 'test';
+    window.location.href = '/test?code=' + encodeURIComponent(code);
+}
+document.getElementById('code').addEventListener('keypress', e => {
+    if (e.key === 'Enter') startTest();
+});
+</script>
 </body>
 </html>

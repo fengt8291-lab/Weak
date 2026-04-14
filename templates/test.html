@@ -5,339 +5,312 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>人性弱点测试 | 第 1/25 题</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Noto Sans SC', -apple-system, sans-serif;
-            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
-            min-height: 100vh; color: #fff;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #FAFAF8;
+            min-height: 100vh;
+            color: #1a1a1a;
+            -webkit-font-smoothing: antialiased;
         }
-        .container { max-width: 640px; margin: 0 auto; padding: 20px; }
-        .progress-box { margin-bottom: 20px; }
-        .progress-info {
-            display: flex; justify-content: space-between;
-            font-size: 13px; color: #8892b0; margin-bottom: 8px;
+        .container { max-width: 600px; margin: 0 auto; padding: 32px 24px 48px; }
+
+        /* Progress */
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
         }
-        .progress-bar { height: 5px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+        .progress-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 13px;
+            color: #aaa;
+            font-weight: 400;
+        }
+        .progress-num strong {
+            font-size: 22px;
+            color: #111;
+            font-weight: 700;
+        }
+        .progress-fraction {
+            font-size: 12px;
+            color: #bbb;
+            letter-spacing: 0.05em;
+        }
+        .progress-track {
+            height: 2px;
+            background: rgba(0,0,0,0.08);
+            border-radius: 1px;
+            overflow: hidden;
+            margin-bottom: 36px;
+        }
         .progress-fill {
-            height: 100%; background: linear-gradient(90deg, #e94560, #ff6b6b);
-            border-radius: 3px; transition: width 0.4s ease;
+            height: 100%;
+            background: #111;
+            border-radius: 1px;
+            transition: width 0.4s ease;
         }
-        .sq-card {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px; padding: 22px; margin-bottom: 24px;
+
+        /* Question Card */
+        .q-card {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.07);
+            border-radius: 18px;
+            padding: 28px 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
-        .sq-text { font-size: 16px; line-height: 1.85; color: #ccd6f6; font-weight: 400; }
-        .scale-statement {
-            background: rgba(233,69,96,0.06);
-            border-left: 3px solid #e94560;
-            padding: 14px 18px; border-radius: 0 12px 12px 0;
-            margin-bottom: 24px;
-            font-size: 16px; line-height: 1.85; color: #ccd6f6;
+        .q-dim-tag {
+            display: inline-block;
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #aaa;
+            margin-bottom: 14px;
+            font-weight: 500;
         }
-        .mc-option {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 14px; padding: 18px 22px; margin: 12px 0;
-            cursor: pointer; transition: all 0.2s;
-            display: flex; align-items: flex-start; gap: 16px;
+        .q-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            line-height: 1.6;
+            color: #222;
+            font-weight: 400;
         }
-        .mc-option:hover {
-            background: rgba(233,69,96,0.12);
-            border-color: rgba(233,69,96,0.4);
-            transform: translateX(6px);
+
+        /* Scale statement */
+        .scale-stmt {
+            border-left: 2px solid #c9a84c;
+            padding: 14px 18px;
+            margin-top: 18px;
+            background: #fefcf6;
+            border-radius: 0 10px 10px 0;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #555;
+            font-style: italic;
         }
-        .mc-option.selected { background: rgba(233,69,96,0.2); border-color: #e94560; }
-        .opt-letter {
-            flex-shrink: 0; width: 30px; height: 30px;
-            background: rgba(255,255,255,0.1); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: 700; color: #8892b0;
+
+        /* MC Options */
+        .mc-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
+        .mc-item {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 12px;
+            padding: 16px 18px;
+            cursor: pointer;
+            transition: all 0.18s;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
-        .mc-option.selected .opt-letter { background: #e94560; color: #fff; }
-        .opt-text { font-size: 15px; line-height: 1.75; color: #ccd6f6; padding-top: 3px; }
+        .mc-item:hover {
+            border-color: rgba(0,0,0,0.16);
+            transform: translateX(3px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .mc-item.selected {
+            border-color: #111;
+            background: #111;
+        }
+        .mc-letter {
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #888;
+            background: #FAFAF8;
+            transition: all 0.18s;
+        }
+        .mc-item.selected .mc-letter {
+            background: #fff;
+            border-color: #fff;
+            color: #111;
+        }
+        .mc-text {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #444;
+            padding-top: 2px;
+            font-weight: 300;
+            transition: color 0.18s;
+        }
+        .mc-item.selected .mc-text { color: #fff; }
+
+        /* Scale Options */
         .scale-labels {
-            display: flex; justify-content: space-between;
-            margin-bottom: 10px; font-size: 12px; color: #5a6a8a;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 11px;
+            color: #bbb;
+            letter-spacing: 0.05em;
+            font-weight: 400;
         }
-        .scale-labels span:first-child { color: #4ade80; }
-        .scale-labels span:last-child { color: #f87171; }
-        .scale-row { display: flex; justify-content: space-between; gap: 6px; }
+        .scale-row { display: flex; justify-content: space-between; gap: 5px; }
         .scale-btn {
-            flex: 1; text-align: center;
-            padding: 16px 2px; border-radius: 10px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            cursor: pointer; transition: all 0.2s;
-            font-size: 13px; font-weight: 600; color: #8892b0; user-select: none;
+            flex: 1;
+            text-align: center;
+            padding: 14px 4px;
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: #888;
+            transition: all 0.15s;
+            user-select: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
-        .scale-btn:hover { background: rgba(233,69,96,0.15); border-color: rgba(233,69,96,0.4); color: #fff; }
-        .scale-btn.selected { background: rgba(233,69,96,0.25); border-color: #e94560; color: #fff; }
+        .scale-btn:hover { border-color: rgba(0,0,0,0.18); color: #111; }
+        .scale-btn.selected {
+            background: #111;
+            border-color: #111;
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .scale-note {
+            text-align: center;
+            font-size: 11px;
+            color: #ccc;
+            margin-top: 10px;
+        }
+
+        /* Navigation */
         .nav {
-            display: flex; justify-content: space-between;
-            margin-top: 32px; padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(0,0,0,0.06);
         }
         .btn {
-            padding: 13px 28px; font-size: 14px; font-weight: 600;
-            border: none; border-radius: 12px; cursor: pointer; transition: all 0.2s;
+            padding: 13px 28px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            letter-spacing: 0.01em;
         }
-        .btn-prev { background: rgba(255,255,255,0.08); color: #8892b0; }
-        .btn-prev:hover { background: rgba(255,255,255,0.12); }
-        .btn-next {
-            background: linear-gradient(135deg, #e94560, #c0392b); color: #fff;
+        .btn-grey {
+            background: rgba(0,0,0,0.05);
+            color: #888;
         }
-        .btn-next:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(233,69,96,0.35); }
-        .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+        .btn-grey:hover { background: rgba(0,0,0,0.1); color: #444; }
+        .btn-dark {
+            background: #111;
+            color: #fff;
+        }
+        .btn-dark:hover { background: #333; transform: translateY(-1px); }
+        .btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none !important; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="progress-box">
-            <div class="progress-info">
-                <span id="progress-text">第 1/25 题</span>
-                <span id="progress-percent">4%</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:4%"></div></div>
-        </div>
-        <div id="sq-container"></div>
-        <div id="options-container"></div>
-        <div class="nav">
-            <button class="btn btn-prev" id="btn-prev" onclick="prevQuestion()" disabled>← 上一题</button>
-            <button class="btn btn-next" id="btn-next" onclick="nextQuestion()" disabled>下一题 →</button>
-        </div>
+<div class="container">
+    <div class="progress-meta">
+        <div class="progress-num">第 <strong id="q-num">1</strong> 题</div>
+        <div class="progress-fraction" id="q-fraction">1 / 25</div>
     </div>
-    <script>
-    // ======= QUESTION BANK v6.0 =======
-    // Q1-Q19: 5-option MC (scene+question merged)
-    // Q20-Q25: 7-point Likert (0=完全不符合 → 6=完全符合)
-    // Likert statements describe the WEAKNESS: 越符合=弱点越明显
-    const questions = [
-        // Q1 批评型 职场
-        {
-            type:"mc", dim:"criticism",
-            sq:"周一早上，你刚坐到工位，同事老张拿着一份熬了三天做出来的方案兴冲冲地给你看。你会怎么评价他的方案？",
-            opts:["整体思路不错，但数据部分有几个地方值得再斟酌一下","挺好的，没什么大问题，支持一下","还行吧，我大概看了一眼","问题不少，数据逻辑对不上，结论也太草率了","跟我没关系，我不想评价"],
-            scores:[-1,0,0,2,1]
-        },
-        // Q2 防御型 职场
-        {
-            type:"mc", dim:"defensive",
-            sq:"部门会议上，老板提出了一个新项目的方向，你心里觉得有几个明显的漏洞。你会怎么做？",
-            opts:["等会议结束后私下找老板沟通，先肯定他的想法，再委婉提出建议","直接在会上举手说：'老板，我有些不同的想法...'","觉得你不懂业务？直接怼回去：'这样做根本不可行'","算了，这是老板的项目，出了事也轮不到我担责任","会后跟要好的同事吐槽：这个方向一上线就得黄"],
-            scores:[-1,0,2,1,2]
-        },
-        // Q3 冷漠型 职场
-        {
-            type:"mc", dim:"indifference",
-            sq:"新来的实习生小明向你请教一个你已经重复教了三遍的问题。你心里会怎么想？",
-            opts:["很正常，刚入职的新人都需要时间熟悉，多教几遍很正常","有点无奈，但还是很耐心地再讲一遍","这都记不住？脑子是不是不太好用...","算了，让他自己查文档去吧，我没空","讲完之后反思：是不是自己的教法有问题，下次换个方式"],
-            scores:[-1,0,2,1,-1]
-        },
-        // Q4 索取型 职场
-        {
-            type:"mc", dim:"taking",
-            sq:"微信上有一个只见过一面的行业前辈给你发消息，问你最近忙不忙。你通常会怎么回复？",
-            opts:["热情回复，先问问对方近况，然后介绍自己最近在做什么","直接回复：'还好，张总有什么指教吗？'然后等对方说正事","先翻翻他的朋友圈，了解背景再决定怎么回复","不知道怎么回复，就打个招呼等对方先说目的","觉得有点突兀，想想他是不是想找我帮忙"],
-            scores:[-1,0,0,1,2]
-        },
-        // Q5 批评型 职场
-        {
-            type:"mc", dim:"criticism",
-            sq:"你辛辛苦苦做了一周的报告，在部门汇报时，同事当众指出你有一个数据用错了。你当场会怎么反应？",
-            opts:["谢谢指出，这个数据确实有误，会后我马上核实修改","愣住几秒，然后说：'对，这个地方我再确认一下'","立刻反驳：这个数据是按XX口径统计的，你理解错了","脸一下子红了，恨不得找个地缝钻进去","心里很不爽，觉得他是故意让你难堪"],
-            scores:[-1,0,2,1,2]
-        },
-        // Q6 防御型 生活
-        {
-            type:"mc", dim:"defensive",
-            sq:"你和伴侣因为假期去哪儿玩产生了分歧，TA想去海边，你想去山里。最后你们一般会怎么决定？",
-            opts:["商量一下各自的想法，看看有没有折中方案","既然TA想去，那就去吧，下次再去我想去的","不行，我做了很久攻略，必须按我的计划来","争论一番，最后看谁更坚持就听谁的","算了不去了，在家待着吧"],
-            scores:[0,0,2,1,0]
-        },
-        // Q7 冷漠型 生活
-        {
-            type:"mc", dim:"indifference",
-            sq:"朋友小李最近失恋了，约你出来喝酒倾诉，吐槽了两个小时前任的各种问题。在整个过程中，你一般会？",
-            opts:["认真倾听，适时说'那确实挺让人难受的'，然后引导他想想接下来怎么办","大部分时间在听，但偶尔会想起自己最近工作上的烦心事","听他说了半小时后，话题慢慢转向了自己的事情","听着听着开始走神，只想赶紧喝完回家","等他说完后问：那你现在打算怎么办？需要我帮你介绍新朋友吗？"],
-            scores:[-1,0,2,1,-1]
-        },
-        // Q8 索取型 生活
-        {
-            type:"mc", dim:"taking",
-            sq:"你突然想起一个很久没联系的老朋友。你主动联系TA通常是因为什么？",
-            opts:["就是想聊聊最近怎么样叙叙旧，没有特别的事","刚好有个事想请教或者请他帮忙","算了，都这么久没联系了，突然找人家怪怪的","算了算账：好久没联系了，现在找人家会不会太功利？","想联系但不知道怎么开口，开场白想半天"],
-            scores:[0,2,1,2,1]
-        },
-        // Q9 批评型 生活
-        {
-            type:"mc", dim:"criticism",
-            sq:"过年回家，你妈又开始唠叨：'你怎么还没对象？隔壁王阿姨的儿子都生二胎了。'你会怎么回应？",
-            opts:["笑着说：'缘分这事急不来，妈你介绍的那些我都认真聊了'","假装没听见，埋头玩手机","反驳：'你们催有什么用，又不是我不找...'","转移话题：'妈你这衣服新买的？挺好看的'","直接说：'别说了，我不想聊这个'然后回房间"],
-            scores:[0,1,2,-1,2]
-        },
-        // Q10 冷漠型 校园
-        {
-            type:"mc", dim:"indifference",
-            sq:"选修课上，教授点名提问，刚好叫到了你的学号，你站起来却完全不知道答案。你会怎么应对？",
-            opts:["诚实地说：'抱歉教授，这个问题我还没复习到'","随便编一个答案，希望能蒙混过关","支支吾吾不说话，等着教授自己跳过去","硬着头皮说一些相关的观点，虽然不准确但态度认真","心想：这个教授怎么老点名，太烦了"],
-            scores:[-1,1,0,0,1]
-        },
-        // Q11 冷漠型 校园
-        {
-            type:"mc", dim:"indifference",
-            sq:"期末考试前，室友在宿舍里大声讨论考试重点，完全不顾你在复习。你会怎么做？",
-            opts:["戴上耳机继续复习，或者去图书馆","直接说：'你们能不能小声点，我在复习呢'","默默忍受，心里很烦躁但不好意思说","加入他们，心想反正也复习不进去了","找个借口说要去图书馆，心里记下这笔账"],
-            scores:[-1,0,1,0,1]
-        },
-        // Q12 防御型 校园
-        {
-            type:"mc", dim:"defensive",
-            sq:"小组作业分工时，有个组员总是拖延，每次轮到他汇报的环节都临时掉链子。下次分组时你会？",
-            opts:["直接跟他坦诚聊一次：'上次合作方式我觉得不太顺畅，这次我们能不能...'","跟其他组员商量，能不能这次把他换掉或者少分点任务","算了，反正多做一点就多做一点，不想伤和气","直接跟老师说换组员","下次再也不跟他一组了"],
-            scores:[-1,0,1,2,1]
-        },
-        // Q13 批评型 生活
-        {
-            type:"mc", dim:"criticism",
-            sq:"你在朋友圈发了一条动态，过了一个小时，只有3个人点赞。你心里会怎么想？",
-            opts:["很正常，不是每条都能有流量，继续发想发的","有点失落，但想想可能是因为发布时间或者内容定位问题","把这条隐藏了，心想下次不发了","算了一下那3个人都是谁，思考是不是内容有问题","无所谓，朋友圈本来就是随便发的"],
-            scores:[-1,0,2,1,0]
-        },
-        // Q14 自恋型 生活
-        {
-            type:"mc", dim:"narcissism",
-            sq:"朋友跟你分享TA最近升职的好消息。你会？",
-            opts:["真心替TA高兴，详细问问是怎么做到的","祝贺之后开始讲自己的职场经历","敷衍一句，然后说自己的事","问TA怎么做到的，表示想学习","恭喜一下就不想再聊这个话题了"],
-            scores:[-1,1,2,-1,1]
-        },
-        // Q15 自恋型 生活
-        {
-            type:"mc", dim:"narcissism",
-            sq:"你和刚认识的人聊了一会儿。通常谁更了解对方的情况？",
-            opts:["差不多，我了解TA的，TA也了解我的","大部分是我在说，TA在听","一有机会就把话题拉到自己身上，眉飞色舞地分享自己的经历","我会主动问TA的问题，让TA多说","各说各的，互相不太了解"],
-            scores:[0,2,2,-1,1]
-        },
-        // Q16 记不住型 生活
-        {
-            type:"mc", dim:"forgetful",
-            sq:"相亲对象第一次见面时，对方自我介绍了自己的名字和职业。见面结束后，你会记住多少？",
-            opts:["名字、职业、有没有共同认识的人——基本都记住了","记住了名字，但职业和一些细节需要再回忆","出了门就忘了姓什么，只记得大概是什么样的人","连长什么样都快忘了","其实根本没在认真听，当时有点走神"],
-            scores:[-1,0,1,2,2]
-        },
-        // Q17 记不住型 校园
-        {
-            type:"mc", dim:"forgetful",
-            sq:"社团迎新会上，你认识了一个新同学，互加微信后他自我介绍了名字。第二天你还能记得对方叫什么吗？",
-            opts:["当然记得，还顺便看了下他的朋友圈了解了他的专业","有印象，但名字想不起来了","加了之后压根没印象这个人是谁","记得大概，但具体叫什么需要想一下","翻一下聊天记录才想起来"],
-            scores:[-1,0,2,0,1]
-        },
-        // Q18 索取型 生活
-        {
-            type:"mc", dim:"taking",
-            sq:"你去参加一个行业沙龙，遇到了一些不认识的人。你会主动跟陌生人打招呼吗？",
-            opts:["会的，主动走过去自我介绍：'你好，我是做XX的...'","不会，但会观察一下，找看起来好聊的人再尝试搭话","不会，我一般等着别人来找我","不想去，觉得社交好累，想找个角落待着","会的，但我会先看看对方是什么背景再决定要不要深入聊"],
-            scores:[-1,0,1,2,1]
-        },
-        // Q19 自恋型 校园
-        {
-            type:"mc", dim:"narcissism",
-            sq:"你和朋友微信聊天时，通常你们对话的节奏是？",
-            opts:["彼此问答交替，聊得很均衡","大部分是我在问，TA在答","大部分是我在说，TA偶尔回应","TA问一句我答一句，很干","我会主动问TA的事，让TA多说"],
-            scores:[-1,0,2,1,-1]
-        },
-        // Q20 批评型 量表（场景更新：好朋友发朋友圈展示辛苦准备的考试）
-        {
-            type:"scale", dim:"criticism",
-            sq:"你看到好朋友发了一条朋友圈，展示他备考了三个月终于通过了考试。你对这句话的符合程度是多少？",
-            statement:"在这个场景下，我第一反应是看看他有没有什么没复习到位的地方，或者想指出一些可以改进的地方。",
-            lowLabel:"完全不符合", highLabel:"完全符合"
-        },
-        // Q21 冷漠型 量表（场景更新：家人/室友倾诉最近不顺利）
-        {
-            type:"scale", dim:"indifference",
-            sq:"你妈（或室友）跟你说：'最近单位/学校里有点不顺心...'你能感觉到TA想跟你聊聊。你对这句话的符合程度是多少？",
-            statement:"在这个场景下，我只是敷衍地回应'哦'或者'会好的'，然后很快把话题转开，不太想花时间听TA诉苦。",
-            lowLabel:"完全不符合", highLabel:"完全符合"
-        },
-        // Q22 自恋型 量表（场景保持新同学，statement微调）
-        {
-            type:"scale", dim:"narcissism",
-            sq:"开学第一天，你和刚认识的新同学一起吃午饭。你对这句话的符合程度是多少？",
-            statement:"在这个场景下，我更想找机会把话题引到我自己身上，分享我自己的故事，而不是花时间去了解TA的经历。",
-            lowLabel:"完全不符合", highLabel:"完全符合"
-        },
-        // Q23 记不住型 量表
-        {
-            type:"scale", dim:"forgetful",
-            sq:"上次聚会认识了一个有趣的人，TA在聊天时提到了自己最近在忙的一个项目。你对这句话的符合程度是多少？",
-            statement:"在这个场景下，我没有太留意TA说的这个项目具体是什么，回头就忘了。",
-            lowLabel:"完全不符合", highLabel:"完全符合"
-        },
-        // Q24 防御型 量表
-        {
-            type:"scale", dim:"defensive",
-            sq:"你和同事讨论一个工作方案，TA提出了一个和你截然不同的观点。你对这句话的符合程度是多少？",
-            statement:"在这个场景下，当同事说得跟我不一样时，我会马上想要反驳他，而不是先倾听。",
-            lowLabel:"完全不符合", highLabel:"完全符合"
-        },
-        // Q25 索取型 量表
-        {
-            type:"scale", dim:"taking",
-            sq:"你帮了朋友一个大忙（借了一笔钱 / 帮了一个大忙）。你对这句话的符合程度是多少？",
-            statement:"在这个场景下，我会惦记着能从这件事里为自己获得点什么回报，哪怕只是一个人情。",
-            lowLabel:"完全不符合", highLabel:"完全符合"
-        }
-    ];
-    
-    let currentQ = 0;
-    let answers = {};
-    const code = new URLSearchParams(window.location.search).get('code') || 'test';
-    const letters = ['A','B','C','D','E'];
-    
-    function renderQuestion() {
-        const q = questions[currentQ];
-        const isScale = q.type === 'scale';
-        document.getElementById('progress-text').textContent = `第 ${currentQ + 1}/25 题`;
-        document.getElementById('progress-percent').textContent = `${Math.round((currentQ + 1) / 25 * 100)}%`;
-        document.getElementById('progress-fill').style.width = `${(currentQ + 1) / 25 * 100}%`;
-        document.title = `人性弱点测试 | 第 ${currentQ + 1}/25 题`;
-        let sqHtml = '';
-        if (isScale) {
-            sqHtml = `<div class="sq-card"><div class="sq-text">${q.sq}</div></div><div class="scale-statement">"${q.statement}"</div>`;
-        } else {
-            sqHtml = `<div class="sq-card"><div class="sq-text">${q.sq}</div></div>`;
-        }
-        document.getElementById('sq-container').innerHTML = sqHtml;
-        const container = document.getElementById('options-container');
-        if (isScale) {
-            container.innerHTML = `<div class="scale-labels"><span>← ${q.lowLabel}</span><span>${q.highLabel} →</span></div><div class="scale-row">${[0,1,2,3,4,5,6].map(n => `<div class="scale-btn ${answers[currentQ] === n ? 'selected' : ''}" onclick="selectOption(${n})">${n+1}</div>`).join('')}</div>`;
-        } else {
-            container.innerHTML = q.opts.map((opt, i) => `<div class="mc-option ${answers[currentQ] === i ? 'selected' : ''}" onclick="selectOption(${i})"><span class="opt-letter">${letters[i]}</span><span class="opt-text">${opt}</span></div>`).join('');
-        }
-        document.getElementById('btn-prev').disabled = currentQ === 0;
-        document.getElementById('btn-next').disabled = answers[currentQ] === undefined;
-        document.getElementById('btn-next').textContent = currentQ === 24 ? '查看结果 →' : '下一题 →';
+    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:4%"></div></div>
+
+    <div class="q-card">
+        <div class="q-dim-tag" id="q-dim-tag"></div>
+        <div class="q-text" id="q-text"></div>
+        <div class="scale-stmt" id="scale-stmt" style="display:none"></div>
+    </div>
+
+    <div id="options-container"></div>
+
+    <div class="nav">
+        <button class="btn btn-grey" id="btn-prev" onclick="prevQuestion()" disabled>← 上一题</button>
+        <button class="btn btn-dark" id="btn-next" onclick="nextQuestion()" disabled>下一题 →</button>
+    </div>
+</div>
+<script>
+const questions=[
+    {type:"mc",dim:"criticism",sq:"周一早上，你刚坐到工位，同事老张拿着一份熬了三天做出来的方案兴冲冲地给你看。你会怎么评价他的方案？",opts:["整体思路不错，但数据部分有几个地方值得再斟酌一下","挺好的，没什么大问题，支持一下","还行吧，我大概看了一眼","问题不少，数据逻辑对不上，结论也太草率了","跟我没关系，我不想评价"],scores:[-1,0,0,2,1]},
+    {type:"mc",dim:"defensive",sq:"部门会议上，老板提出了一个新项目的方向，你心里觉得有几个明显的漏洞。你会怎么做？",opts:["等会议结束后私下找老板沟通，先肯定他的想法，再委婉提出建议","直接在会上举手说：'老板，我有些不同的想法...'","觉得你不懂业务？直接怼回去：'这样做根本不可行'","算了，这是老板的项目，出了事也轮不到我担责任","会后跟要好的同事吐槽：这个方向一上线就得黄"],scores:[-1,0,2,1,2]},
+    {type:"mc",dim:"indifference",sq:"新来的实习生小明向你请教一个你已经重复教了三遍的问题。你心里会怎么想？",opts:["很正常，刚入职的新人都需要时间熟悉，多教几遍很正常","有点无奈，但还是很耐心地再讲一遍","这都记不住？脑子是不是不太好用...","算了，让他自己查文档去吧，我没空","讲完之后反思：是不是自己的教法有问题，下次换个方式"],scores:[-1,0,2,1,-1]},
+    {type:"mc",dim:"taking",sq:"微信上有一个只见过一面的行业前辈给你发消息，问你最近忙不忙。你通常会怎么回复？",opts:["热情回复，先问问对方近况，然后介绍自己最近在做什么","直接回复：'还好，张总有什么指教吗？'然后等对方说正事","先翻翻他的朋友圈，了解背景再决定怎么回复","不知道怎么回复，就打个招呼等对方先说目的","觉得有点突兀，想想他是不是想找我帮忙"],scores:[-1,0,0,1,2]},
+    {type:"mc",dim:"criticism",sq:"你辛辛苦苦做了一周的报告，在部门汇报时，同事当众指出你有一个数据用错了。你当场会怎么反应？",opts:["谢谢指出，这个数据确实有误，会后我马上核实修改","愣住几秒，然后说：'对，这个地方我再确认一下'","立刻反驳：这个数据是按XX口径统计的，你理解错了","脸一下子红了，恨不得找个地缝钻进去","心里很不爽，觉得他是故意让你难堪"],scores:[-1,0,2,1,2]},
+    {type:"mc",dim:"defensive",sq:"你和伴侣因为假期去哪儿玩产生了分歧，TA想去海边，你想去山里。最后你们一般会怎么决定？",opts:["商量一下各自的想法，看看有没有折中方案","既然TA想去，那就去吧，下次再去我想去的","不行，我做了很久攻略，必须按我的计划来","争论一番，最后看谁更坚持就听谁的","算了不去了，在家待着吧"],scores:[0,0,2,1,0]},
+    {type:"mc",dim:"indifference",sq:"朋友小李最近失恋了，约你出来喝酒倾诉，吐槽了两个小时前任的各种问题。在整个过程中，你一般会？",opts:["认真倾听，适时说'那确实挺让人难受的'，然后引导他想想接下来怎么办","大部分时间在听，但偶尔会想起自己最近工作上的烦心事","听他说了半小时后，话题慢慢转向了自己的事情","听着听着开始走神，只想赶紧喝完回家","等他说完后问：那你现在打算怎么办？需要我帮你介绍新朋友吗？"],scores:[-1,0,2,1,-1]},
+    {type:"mc",dim:"taking",sq:"你突然想起一个很久没联系的老朋友。你主动联系TA通常是因为什么？",opts:["就是想聊聊最近怎么样叙叙旧，没有特别的事","刚好有个事想请教或者请他帮忙","算了，都这么久没联系了，突然找人家怪怪的","算了算账：好久没联系了，现在找人家会不会太功利？","想联系但不知道怎么开口，开场白想半天"],scores:[0,2,1,2,1]},
+    {type:"mc",dim:"criticism",sq:"过年回家，你妈又开始唠叨：'你怎么还没对象？隔壁王阿姨的儿子都生二胎了。'你会怎么回应？",opts:["笑着说：'缘分这事急不来，妈你介绍的那些我都认真聊了'","假装没听见，埋头玩手机","反驳：'你们催有什么用，又不是我不找...'","转移话题：'妈你这衣服新买的？挺好看的'","直接说：'别说了，我不想聊这个'然后回房间"],scores:[0,1,2,-1,2]},
+    {type:"mc",dim:"indifference",sq:"选修课上，教授点名提问，刚好叫到了你的学号，你站起来却完全不知道答案。你会怎么应对？",opts:["诚实地说：'抱歉教授，这个问题我还没复习到'","随便编一个答案，希望能蒙混过关","支支吾吾不说话，等着教授自己跳过去","硬着头皮说一些相关的观点，虽然不准确但态度认真","心想：这个教授怎么老点名，太烦了"],scores:[-1,1,0,0,1]},
+    {type:"mc",dim:"indifference",sq:"期末考试前，室友在宿舍里大声讨论考试重点，完全不顾你在复习。你会怎么做？",opts:["戴上耳机继续复习，或者去图书馆","直接说：'你们能不能小声点，我在复习呢'","默默忍受，心里很烦躁但不好意思说","加入他们，心想反正也复习不进去了","找个借口说要去图书馆，心里记下这笔账"],scores:[-1,0,1,0,1]},
+    {type:"mc",dim:"defensive",sq:"小组作业分工时，有个组员总是拖延，每次轮到他汇报的环节都临时掉链子。下次分组时你会？",opts:["直接跟他坦诚聊一次：'上次合作方式我觉得不太顺畅，这次我们能不能...'","跟其他组员商量，能不能这次把他换掉或者少分点任务","算了，反正多做一点就多做一点，不想伤和气","直接跟老师说换组员","下次再也不跟他一组了"],scores:[-1,0,1,2,1]},
+    {type:"mc",dim:"criticism",sq:"你在朋友圈发了一条动态，过了一个小时，只有3个人点赞。你心里会怎么想？",opts:["很正常，不是每条都能有流量，继续发想发的","有点失落，但想想可能是因为发布时间或者内容定位问题","把这条隐藏了，心想下次不发了","算了一下那3个人都是谁，思考是不是内容有问题","无所谓，朋友圈本来就是随便发的"],scores:[-1,0,2,1,0]},
+    {type:"mc",dim:"narcissism",sq:"朋友跟你分享TA最近升职的好消息。你会？",opts:["真心替TA高兴，详细问问是怎么做到的","祝贺之后开始讲自己的职场经历","敷衍一句，然后说自己的事","问TA怎么做到的，表示想学习","恭喜一下就不想再聊这个话题了"],scores:[-1,1,2,-1,1]},
+    {type:"mc",dim:"narcissism",sq:"你和刚认识的人聊了一会儿。通常谁更了解对方的情况？",opts:["差不多，我了解TA的，TA也了解我的","大部分是我在说，TA在听","一有机会就把话题拉到自己身上，眉飞色舞地分享自己的经历","我会主动问TA的问题，让TA多说","各说各的，互相不太了解"],scores:[0,2,2,-1,1]},
+    {type:"mc",dim:"forgetful",sq:"相亲对象第一次见面时，对方自我介绍了自己的名字和职业。见面结束后，你会记住多少？",opts:["名字、职业、有没有共同认识的人——基本都记住了","记住了名字，但职业和一些细节需要再回忆","出了门就忘了姓什么，只记得大概是什么样的人","连长什么样都快忘了","其实根本没在认真听，当时有点走神"],scores:[-1,0,1,2,2]},
+    {type:"mc",dim:"forgetful",sq:"社团迎新会上，你认识了一个新同学，互加微信后他自我介绍了名字。第二天你还能记得对方叫什么吗？",opts:["当然记得，还顺便看了下他的朋友圈了解了他的专业","有印象，但名字想不起来了","加了之后压根没印象这个人是谁","记得大概，但具体叫什么需要想一下","翻一下聊天记录才想起来"],scores:[-1,0,2,0,1]},
+    {type:"mc",dim:"taking",sq:"你去参加一个行业沙龙，遇到了一些不认识的人。你会主动跟陌生人打招呼吗？",opts:["会的，主动走过去自我介绍：'你好，我是做XX的...'","不会，但会观察一下，找看起来好聊的人再尝试搭话","不会，我一般等着别人来找我","不想去，觉得社交好累，想找个角落待着","会的，但我会先看看对方是什么背景再决定要不要深入聊"],scores:[-1,0,1,2,1]},
+    {type:"mc",dim:"narcissism",sq:"你和朋友微信聊天时，通常你们对话的节奏是？",opts:["彼此问答交替，聊得很均衡","大部分是我在问，TA在答","大部分是我在说，TA偶尔回应","TA问一句我答一句，很干","我会主动问TA的事，让TA多说"],scores:[-1,0,2,1,-1]},
+    {type:"scale",dim:"criticism",sq:"你看到好朋友发了一条朋友圈，展示他备考了三个月终于通过了考试。",statement:"在这个场景下，我第一反应是看看他有没有什么没复习到位的地方，或者想指出一些可以改进的地方。",lowLabel:"完全不符合",highLabel:"完全符合"},
+    {type:"scale",dim:"indifference",sq:"你妈（或室友）跟你说：'最近单位/学校里有点不顺心...'你能感觉到TA想跟你聊聊。",statement:"在这个场景下，我只是敷衍地回应'哦'或者'会好的'，然后很快把话题转开，不太想花时间听TA诉苦。",lowLabel:"完全不符合",highLabel:"完全符合"},
+    {type:"scale",dim:"narcissism",sq:"开学第一天，你和刚认识的新同学一起吃午饭。",statement:"在这个场景下，我更想找机会把话题引到我自己身上，分享我自己的故事，而不是花时间去了解TA的经历。",lowLabel:"完全不符合",highLabel:"完全符合"},
+    {type:"scale",dim:"forgetful",sq:"上次聚会认识了一个有趣的人，TA在聊天时提到了自己最近在忙的一个项目。",statement:"在这个场景下，我没有太留意TA说的这个项目具体是什么，回头就忘了。",lowLabel:"完全不符合",highLabel:"完全符合"},
+    {type:"scale",dim:"defensive",sq:"你和同事讨论一个工作方案，TA提出了一个和你截然不同的观点。",statement:"在这个场景下，当同事说得跟我不一样时，我会马上想要反驳他，而不是先倾听。",lowLabel:"完全不符合",highLabel:"完全符合"},
+    {type:"scale",dim:"taking",sq:"你帮了朋友一个大忙（借了一笔钱 / 帮了一个大忙）。",statement:"在这个场景下，我会惦记着能从这件事里为自己获得点什么回报，哪怕只是一个人情。",lowLabel:"完全不符合",highLabel:"完全符合"}
+];
+
+const DIM_NAMES={criticism:"谦逊度",indifference:"关怀度",narcissism:"自信度",forgetful:"细心度",defensive:"开放度",taking:"慷慨度"};
+const LETTERS=['A','B','C','D','E'];
+let currentQ=0,answers={};
+const code=new URLSearchParams(window.location.search).get('code')||'test';
+
+function renderQuestion(){
+    const q=questions[currentQ];
+    const isScale=q.type==='scale';
+    document.getElementById('q-num').textContent=currentQ+1;
+    document.getElementById('q-fraction').textContent=`${currentQ+1} / 25`;
+    document.getElementById('progress-fill').style.width=`${(currentQ+1)/25*100}%`;
+    document.title=`人性弱点测试 | 第 ${currentQ+1}/25 题`;
+    document.getElementById('q-dim-tag').textContent=isScale?'量表题':'选择题';
+    document.getElementById('q-text').textContent=q.sq;
+    const stmtEl=document.getElementById('scale-stmt');
+    if(isScale){stmtEl.style.display='block';stmtEl.innerHTML=`"${q.statement}"`;}else{stmtEl.style.display='none';}
+    const container=document.getElementById('options-container');
+    if(isScale){
+        container.innerHTML=`<div class="scale-labels"><span>← ${q.lowLabel}</span><span>${q.highLabel} →</span></div><div class="scale-row">${[0,1,2,3,4,5,6].map(n=>`<div class="scale-btn ${answers[currentQ]===n?'selected':''}" onclick="selectOpt(${n})">${n+1}</div>`).join('')}</div><div class="scale-note">按 1-7 选择，或使用键盘 ← → 切换</div>`;
+    }else{
+        container.innerHTML=`<div class="mc-list">${q.opts.map((opt,i)=>`<div class="mc-item ${answers[currentQ]===i?'selected':''}" onclick="selectOpt(${i})"><span class="mc-letter">${LETTERS[i]}</span><span class="mc-text">${opt}</span></div>`).join('')}</div>`;
     }
-    function selectOption(idx) { answers[currentQ] = idx; renderQuestion(); }
-    function nextQuestion() { if (currentQ < 24) { currentQ++; renderQuestion(); } else submitTest(); }
-    function prevQuestion() { if (currentQ > 0) { currentQ--; renderQuestion(); } }
-    function submitTest() {
-        const params = new URLSearchParams();
-        params.set('code', code);
-        for (let i = 0; i < 25; i++) { params.set('q' + (i + 1), answers[i] !== undefined ? answers[i] : 0); }
-        window.location.href = '/result?' + params.toString();
-    }
-    document.addEventListener('keydown', e => {
-        const q = questions[currentQ];
-        if (q.type === 'scale') { if (e.key >= '1' && e.key <= '7') selectOption(parseInt(e.key) - 1); }
-        else { if (e.key >= '1' && e.key <= '5') selectOption(parseInt(e.key) - 1); }
-        if ((e.key === 'ArrowRight' || e.key === ' ') && answers[currentQ] !== undefined) nextQuestion();
-        if (e.key === 'ArrowLeft') prevQuestion();
-    });
-    renderQuestion();
-    </script>
+    document.getElementById('btn-prev').disabled=currentQ===0;
+    document.getElementById('btn-next').disabled=answers[currentQ]===undefined;
+    document.getElementById('btn-next').textContent=currentQ===24?'查看结果 →':'下一题 →';
+}
+function selectOpt(idx){answers[currentQ]=idx;renderQuestion();}
+function nextQuestion(){if(currentQ<24){currentQ++;renderQuestion();}else submitTest();}
+function prevQuestion(){if(currentQ>0){currentQ--;renderQuestion();}}
+function submitTest(){
+    const p=new URLSearchParams();p.set('code',code);
+    for(let i=0;i<25;i++)p.set('q'+(i+1),answers[i]!==undefined?answers[i]:0);
+    window.location.href='/result?'+p.toString();
+}
+document.addEventListener('keydown',e=>{
+    const q=questions[currentQ];
+    if(q.type==='scale'){if(e.key>='1'&&e.key<='7')selectOpt(parseInt(e.key)-1);}
+    else{if(e.key>='1'&&e.key<='5')selectOpt(parseInt(e.key)-1);}
+    if((e.key==='ArrowRight'||e.key===' ')&&answers[currentQ]!==undefined)nextQuestion();
+    if(e.key==='ArrowLeft')prevQuestion();
+});
+renderQuestion();
+</script>
 </body>
 </html>

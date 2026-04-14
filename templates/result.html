@@ -5,103 +5,213 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>人性弱点诊断报告</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:"Noto Sans SC",-apple-system,sans-serif;background:linear-gradient(135deg,#0f0f1a,#1a1a2e 50%,#16213e);min-height:100vh;color:#fff}
-.container{max-width:600px;margin:0 auto;padding:20px}
-.hero{text-align:center;padding:40px 0;position:relative}
-.hero::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;background:radial-gradient(circle,rgba(233,69,96,0.12),transparent 70%)}
-.hero-icon{font-size:60px;margin-bottom:16px}
-.hero-title{font-size:26px;font-weight:900;margin-bottom:8px;background:linear-gradient(135deg,#e94560,#ff6b6b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero-subtitle{font-size:13px;color:#8892b0}
-.health-card{border-radius:16px;padding:20px;margin:20px 0;text-align:center;transition:all .3s;border:1px solid}
-.health-label{font-size:13px;margin-bottom:8px}
-.health-score{font-size:52px;font-weight:900}
-.health-desc{font-size:13px;margin-top:8px}
-.radar-section{margin:28px 0;text-align:center}
-.radar-title{font-size:15px;font-weight:600;margin-bottom:16px;color:#ccd6f6}
-.radar-container{width:100%;max-width:320px;margin:0 auto}
+body{font-family:"Inter",-apple-system,sans-serif;background:#FAFAF8;color:#1a1a1a;min-height:100vh;-webkit-font-smoothing:antialiased}
+.container{max-width:600px;margin:0 auto;padding:48px 24px 80px}
+
+/* Logo */
+.logo{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#aaa;margin-bottom:48px;font-weight:500}
+.logo span{color:#c9a84c}
+
+/* Hero */
+.hero{margin-bottom:36px;text-align:center}
+.hero-rule{width:40px;height:1px;background:#c9a84c;margin:0 auto 28px}
+.hero-title{font-family:"Cormorant Garamond",serif;font-size:38px;font-weight:700;line-height:1.2;color:#111;margin-bottom:12px;letter-spacing:-0.01em}
+.hero-title em{font-style:italic;color:#c9a84c}
+.hero-sub{font-size:13px;color:#999;font-weight:300;line-height:1.7}
+
+/* Health Score Card */
+.health-card{border-radius:20px;padding:28px 32px;margin-bottom:32px;text-align:center;transition:all .3s;border:1px solid rgba(0,0,0,0.06);background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.health-label{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#aaa;margin-bottom:12px;font-weight:500}
+.health-score{font-family:"Playfair Display",serif;font-size:68px;font-weight:700;line-height:1;margin-bottom:6px}
+.health-unit{font-size:26px;font-weight:400;color:#bbb}
+.health-desc{font-size:13px;margin-top:8px;line-height:1.6}
+
+/* Radar */
+.radar-section{margin:32px 0;text-align:center}
+.radar-rule{width:20px;height:1px;background:#ddd;margin:0 auto 20px}
+.radar-title{font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:#aaa;margin-bottom:16px;font-weight:500}
+.radar-container{width:100%;max-width:300px;margin:0 auto}
 .radar-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
-.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;padding:3px 10px;background:rgba(255,255,255,.05);border-radius:20px}
-.legend-dot{width:8px;height:8px;border-radius:50%}
-.weakness-card{background:linear-gradient(145deg,rgba(233,69,96,.12),rgba(233,69,96,.04));border:1px solid rgba(233,69,96,.3);border-radius:20px;padding:28px;margin:20px 0;position:relative;overflow:hidden}
-.weakness-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e94560,#ff6b6b)}
-.weakness-header{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-.weakness-icon{font-size:44px}
-.weakness-info{flex:1}
-.weakness-name{font-size:22px;font-weight:700;color:#e94560}
-.weakness-desc{font-size:13px;color:#8892b0;margin-top:4px}
-.weakness-score-tag{background:rgba(233,69,96,.25);padding:8px 14px;border-radius:20px;font-size:18px;font-weight:700;color:#ff8a80}
-.quote-box{background:rgba(255,255,255,.03);border-left:3px solid #e94560;padding:16px;margin:16px 0;border-radius:0 12px 12px 0}
-.quote-text{font-size:14px;line-height:1.8;color:#ccd6f6;font-style:italic}
-.quote-author{font-size:11px;color:#8892b0;margin-top:8px;text-align:right}
-.analysis-card{background:rgba(255,255,255,.03);border-radius:16px;padding:22px;margin:16px 0}
-.analysis-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.analysis-icon{font-size:28px}
-.analysis-title{font-size:16px;font-weight:700}
-.analysis-text{font-size:14px;line-height:2;color:#a8b2d1;text-indent:2em}
-.carnegie-block{background:rgba(44,62,80,.3);border-radius:10px;padding:16px;margin:12px 0}
-.carnegie-label{font-size:11px;color:#e94560;margin-bottom:8px;font-weight:600}
-.carnegie-text{font-size:13px;line-height:1.85;color:#b8c4d8;font-style:italic}
-.action-card{background:rgba(46,204,113,.08);border:1px solid rgba(46,204,113,.2);border-radius:12px;padding:14px;margin:10px 0}
-.action-num{display:inline-block;width:22px;height:22px;background:#2ecc71;border-radius:50%;text-align:center;line-height:22px;font-size:11px;font-weight:700;margin-right:10px}
-.action-text{font-size:14px;color:#ccd6f6;line-height:1.7}
-.dim-card{background:rgba(255,255,255,.03);border-radius:14px;margin:10px 0;border:1px solid rgba(255,255,255,.06);overflow:hidden}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#666;padding:3px 12px;background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:20px}
+.legend-bar{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* Main Weakness Card */
+.weakness-card{border-radius:20px;padding:28px 32px;margin-bottom:20px;background:#fff;border:1px solid rgba(0,0,0,0.07);box-shadow:0 1px 3px rgba(0,0,0,0.04);position:relative;overflow:hidden}
+.weakness-card::before{content:"";position:absolute;top:0;left:32px;right:32px;height:2px;background:linear-gradient(90deg,#c9a84c,transparent)}
+.weakness-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:20px}
+.weakness-idx{font-family:"Playfair Display",serif;font-size:52px;font-weight:700;color:#f4f4f4;line-height:1;user-select:none;flex-shrink:0;min-width:56px}
+.weakness-body{flex:1}
+.weakness-name{font-family:"Cormorant Garamond",serif;font-size:24px;font-weight:700;color:#111;margin-bottom:6px}
+.weakness-desc{font-size:13px;color:#888;line-height:1.7;font-weight:300;margin-bottom:10px}
+.weakness-score-tag{display:inline-block;font-size:15px;font-weight:700;padding:6px 14px;border-radius:20px;border:1px solid;transition:all .3s}
+.quote-box{border-left:2px solid #c9a84c;padding:14px 18px;background:#fefcf6;border-radius:0 12px 12px 0;margin-top:18px}
+.quote-text{font-family:"Cormorant Garamond",serif;font-size:15px;font-style:italic;color:#555;line-height:1.8}
+.quote-author{font-size:11px;color:#aaa;margin-top:8px;text-align:right;letter-spacing:0.03em}
+
+/* Analysis Cards */
+.analysis-card{border-radius:16px;padding:24px 28px;margin:16px 0;background:#fff;border:1px solid rgba(0,0,0,0.06);box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+.analysis-header{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(0,0,0,0.05)}
+.analysis-title{font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#aaa;font-weight:500}
+.analysis-text{font-size:14px;line-height:2;color:#555;font-weight:300;text-indent:2em}
+.carnegie-block{background:#fafaf8;border-radius:10px;padding:16px;margin-top:12px;border:1px solid rgba(0,0,0,0.05)}
+.carnegie-label{font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:#c9a84c;margin-bottom:8px;font-weight:600}
+.carnegie-text{font-size:13px;line-height:1.85;color:#777;font-style:italic}
+
+/* Action Tips */
+.action-item{display:flex;gap:16px;margin-bottom:12px;align-items:flex-start}
+.action-num{font-family:"Playfair Display",serif;font-size:20px;font-weight:700;color:#c9a84c;min-width:24px;line-height:1.4}
+.action-text{font-size:14px;color:#555;line-height:1.8;padding-top:2px;font-weight:300}
+
+/* Section divider */
+.section-rule{display:flex;align-items:center;gap:12px;margin:32px 0 16px}
+.section-rule::before,.section-rule::after{content:"";flex:1;height:1px;background:#e8e8e6}
+.section-title{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:#aaa;font-weight:500;white-space:nowrap}
+
+/* Dim Cards */
+.dim-card{border-radius:14px;margin:8px 0;background:#fff;border:1px solid rgba(0,0,0,0.07);overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
 .dim-card-header{display:flex;align-items:center;gap:12px;padding:16px 18px;cursor:pointer;transition:background .2s;user-select:none}
-.dim-card-header:hover{background:rgba(255,255,255,.03)}
+.dim-card-header:hover{background:rgba(0,0,0,0.015)}
 .dim-header-left{display:flex;align-items:center;gap:10px;flex:1}
-.dim-icon{font-size:22px}
-.dim-name{font-size:15px;font-weight:600}
-.dim-health-bar-wrap{flex:1;max-width:120px}
-.dim-health-bar{height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden}
-.dim-health-fill{height:100%;border-radius:3px;transition:width .6s ease}
-.dim-health-pct{font-size:13px;font-weight:700;min-width:38px;text-align:right}
-.dim-toggle{font-size:14px;color:#5a6a8a;transition:transform .3s}
+.dim-num{font-family:"Playfair Display",serif;font-size:16px;font-weight:700;color:#ddd;min-width:20px;text-align:center;line-height:1}
+.dim-name{font-size:14px;color:#333;font-weight:500}
+.dim-health-bar-wrap{flex:1;max-width:110px}
+.dim-health-bar{height:3px;background:rgba(0,0,0,0.06);border-radius:2px;overflow:hidden}
+.dim-health-fill{height:100%;border-radius:2px;transition:width .8s ease}
+.dim-health-pct{font-size:13px;font-weight:700;min-width:36px;text-align:right}
+.dim-toggle{font-size:12px;color:#ccc;transition:transform .3s}
 .dim-toggle.open{transform:rotate(180deg)}
 .dim-card-body{max-height:0;overflow:hidden;transition:max-height .4s ease;padding:0 18px}
-.dim-card-body.open{max-height:900px;padding:0 18px 18px}
-.dim-intro{font-size:13px;line-height:1.9;color:#a8b2d1;margin-bottom:12px}
-.dim-quote{font-size:12px;line-height:1.8;color:#8892b0;font-style:italic;border-left:2px solid rgba(233,69,96,.4);padding-left:12px}
-.safe-card{display:flex;align-items:center;gap:10px;background:rgba(46,204,113,.06);border:1px solid rgba(46,204,113,.15);border-radius:10px;padding:10px 14px;margin:8px 0}
-.safe-icon{font-size:16px}
-.safe-name{font-size:13px;color:#2ecc71;font-weight:600}
-.book-card{display:none;gap:14px;align-items:flex-start;background:rgba(255,255,255,.03);border-radius:12px;padding:16px;margin:8px 0}
+.dim-card-body.open{max-height:800px;padding:0 18px 18px}
+.dim-intro{font-size:13px;line-height:1.9;color:#666;margin-bottom:12px;font-weight:300}
+.dim-quote{font-size:12px;line-height:1.8;color:#999;font-style:italic;border-left:2px solid rgba(0,0,0,0.1);padding-left:12px}
+
+/* Safe Zone */
+.safe-card{margin-top:8px}
+.safe-item{font-size:13px;color:#16a34a;font-weight:500;padding:8px 0;display:flex;align-items:center;gap:10px}
+.safe-bar{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* Books */
+.book-card{display:none;gap:14px;align-items:flex-start;background:#fff;border:1px solid rgba(0,0,0,0.07);border-radius:14px;padding:18px;margin:8px 0;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
 .book-info{flex:1}
-.book-title{font-size:14px;font-weight:700;color:#ccd6f6;margin-bottom:4px}
-.book-author{font-size:12px;color:#8892b0;margin-bottom:6px}
-.book-desc{font-size:12px;color:#7a8ab0;line-height:1.7}
-.section-title{font-size:14px;font-weight:600;color:#8892b0;margin:24px 0 12px;padding-left:4px}
-.final-quote{text-align:center;padding:32px 20px;font-size:17px;font-weight:500;color:#ccd6f6;line-height:1.9}
+.book-title{font-size:14px;font-weight:600;color:#222;margin-bottom:4px}
+.book-author{font-size:12px;color:#aaa;margin-bottom:6px;font-weight:400}
+.book-desc{font-size:12px;color:#777;line-height:1.7;font-weight:300}
+
+/* Final quote */
+.final-quote{text-align:center;padding:36px 20px;font-family:"Cormorant Garamond",serif;font-size:20px;font-style:italic;color:#aaa;line-height:1.8}
+
+/* Share */
 .share-section{text-align:center;padding:24px 0}
-.share-title{font-size:14px;color:#8892b0;margin-bottom:14px}
+.share-title{font-size:13px;color:#bbb;margin-bottom:16px;font-weight:300}
 .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.share-btn,.retest-btn{display:inline-block;padding:14px 30px;border-radius:30px;font-size:15px;font-weight:600;cursor:pointer;border:none;text-decoration:none}
-.share-btn{background:linear-gradient(135deg,#e94560,#c0392b);color:#fff}
-.retest-btn{background:rgba(255,255,255,.08);color:#8892b0;border:1px solid rgba(255,255,255,.15)}
-.share-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(233,69,96,.3)}
-.retest-btn:hover{background:rgba(255,255,255,.12);color:#ccd6f6}
+.share-btn,.retest-btn{display:inline-block;padding:15px 30px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;border:none;text-decoration:none;transition:all .25s}
+.share-btn{background:#111;color:#fff}
+.retest-btn{background:#fff;color:#555;border:1px solid rgba(0,0,0,0.15)}
+.share-btn:hover{background:#333;transform:translateY(-1px)}
+.retest-btn:hover{border-color:rgba(0,0,0,0.3);color:#111}
+
+/* Footer */
+.footer{text-align:center;padding:24px 0;font-size:11px;color:#ddd;line-height:1.8}
 </style>
 </head>
 <body>
 <div class="container">
-<div class="hero"><div class="hero-icon">&#128269;</div><h1 class="hero-title">你的人性弱点诊断报告</h1><p class="hero-subtitle">基于卡耐基《人性的弱点》| 25道场景测试</p></div>
-<div class="health-card" id="health-card"><div class="health-label" id="health-label">&#127919; 人际健康指数</div><div class="health-score" id="health-score">--</div><div class="health-desc" id="health-desc">加载中...</div></div>
-<div class="radar-section"><div class="radar-title">&#128202; 六维健康雷达图</div><div class="radar-container"><svg viewBox="0 0 300 300" id="radar-svg"></svg></div><div class="radar-legend" id="radar-legend"></div></div>
-<div class="weakness-card"><div class="weakness-header"><span class="weakness-icon" id="main-icon">&#128269;</span><div class="weakness-info"><div class="weakness-name" id="main-name">--</div><div class="weakness-desc" id="main-desc">--</div></div><div class="weakness-score-tag" id="main-score">--</div></div><div class="quote-box"><div class="quote-text" id="carnegie-quote">--</div><div class="quote-author">— 戴尔·卡耐基《人性的弱点》</div></div></div>
-<div class="analysis-card"><div class="analysis-header"><span class="analysis-icon">&#129504;</span><span class="analysis-title">为什么你会形成这个弱点</span></div><div class="analysis-text" id="why-section"></div><div class="carnegie-block"><div class="carnegie-label">&#128214; 卡耐基原文明释</div><div class="carnegie-text" id="carnegie-why-block"></div></div></div>
-<div class="analysis-card"><div class="analysis-header"><span class="analysis-icon">&#128161;</span><span class="analysis-title">这个弱点如何悄悄毁掉你的人际关系</span></div><div class="analysis-text" id="impact-section"></div><div class="carnegie-block"><div class="carnegie-label">&#128214; 卡耐基原文明释</div><div class="carnegie-text" id="carnegie-impact-block"></div></div></div>
-<div class="analysis-card"><div class="analysis-header"><span class="analysis-icon">&#10024;</span><span class="analysis-title">卡耐基的改变建议</span></div><div id="action-tips"></div></div>
-<div class="section-title">&#128214; 六大维度详解（点击卡片展开）</div>
+<div class="logo">人性弱点<span> · </span>诊断报告</div>
+
+<div class="hero">
+    <div class="hero-rule"></div>
+    <h1 class="hero-title">你的人际关系<br><em>隐形裂缝</em></h1>
+    <p class="hero-sub">基于卡耐基《人性的弱点》 · 25道真实场景测试</p>
+</div>
+
+<div class="health-card" id="health-card">
+    <div class="health-label" id="health-label">人际健康指数</div>
+    <div class="health-score" id="health-score">--<span class="health-unit">分</span></div>
+    <div class="health-desc" id="health-desc">加载中...</div>
+</div>
+
+<div class="radar-section">
+    <div class="radar-rule"></div>
+    <div class="radar-title">六维健康雷达图</div>
+    <div class="radar-container"><svg viewBox="0 0 300 300" id="radar-svg"></svg></div>
+    <div class="radar-legend" id="radar-legend"></div>
+</div>
+
+<div class="weakness-card">
+    <div class="weakness-header">
+        <span id="main-icon" style="display:none"></span>
+        <div class="weakness-idx">01</div>
+        <div class="weakness-body">
+            <div class="weakness-name" id="main-name">--</div>
+            <div class="weakness-desc" id="main-desc">--</div>
+            <span class="weakness-score-tag" id="main-score-tag">--</span>
+        </div>
+    </div>
+    <div class="quote-box">
+        <div class="quote-text" id="carnegie-quote">--</div>
+        <div class="quote-author">— 戴尔·卡耐基《人性的弱点》</div>
+    </div>
+</div>
+
+<div class="analysis-card">
+    <div class="analysis-header">
+        <div class="analysis-title">为什么你会形成这个弱点</div>
+    </div>
+    <div class="analysis-text" id="why-section"></div>
+    <div class="carnegie-block">
+        <div class="carnegie-label">卡耐基原文</div>
+        <div class="carnegie-text" id="carnegie-why-block"></div>
+    </div>
+</div>
+
+<div class="analysis-card">
+    <div class="analysis-header">
+        <div class="analysis-title">这个弱点如何悄悄毁掉你的人际关系</div>
+    </div>
+    <div class="analysis-text" id="impact-section"></div>
+    <div class="carnegie-block">
+        <div class="carnegie-label">卡耐基原文</div>
+        <div class="carnegie-text" id="carnegie-impact-block"></div>
+    </div>
+</div>
+
+<div class="analysis-card">
+    <div class="analysis-header">
+        <div class="analysis-title">卡耐基的改变建议</div>
+    </div>
+    <div id="action-tips"></div>
+</div>
+
+<div class="section-rule"><span class="section-title">六大维度详解</span></div>
 <div id="dim-cards"></div>
-<div class="section-title">&#9989; 你的安全区</div>
-<div class="analysis-card" id="safe-section"><div id="safe-weakness"></div></div>
-<div class="section-title">&#128218; 延伸阅读</div>
+
+<div class="section-rule"><span class="section-title">你的安全区</span></div>
+<div class="analysis-card" id="safe-section">
+    <div class="safe-card" id="safe-weakness"></div>
+</div>
+
+<div class="section-rule"><span class="section-title">延伸阅读</span></div>
 <div class="book-card"><div class="book-info"><div class="book-title"></div><div class="book-author"></div><div class="book-desc"></div></div></div>
 <div class="book-card"><div class="book-info"><div class="book-title"></div><div class="book-author"></div><div class="book-desc"></div></div></div>
 <div class="book-card"><div class="book-info"><div class="book-title"></div><div class="book-author"></div><div class="book-desc"></div></div></div>
-<div class="final-quote" id="final-quote">"认识自己，才能改变自己。<br>改变自己，才能改变你与世界的距离。"</div>
-<div class="share-section"><div class="share-title">戳中你的痛点了吗？转发给朋友看看</div><div class="btn-row"><button class="share-btn" id="share-btn">&#128228; 复制分享文案</button><a href="/" class="retest-btn">&#128260; 重新测试</a></div></div>
+
+<div class="final-quote">"认识自己，才能改变自己。<br>改变自己，才能改变你与世界的距离。"</div>
+
+<div class="share-section">
+    <div class="share-title">戳中你的痛点了吗？转发给朋友看看</div>
+    <div class="btn-row">
+        <button class="share-btn" id="share-btn">复制分享文案</button>
+        <a href="/" class="retest-btn">重新测试</a>
+    </div>
+</div>
+
+<div class="footer">
+    人性弱点诊断报告 · 基于卡耐基《人性的弱点》<br>
+    测测你的人际盲点 ↓
+</div>
 </div>
 <script src="/static/js/dimData.js"></script>
 <script src="/static/js/books.js"></script>
