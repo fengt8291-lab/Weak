@@ -156,6 +156,17 @@
             line-height: 1.8;
         }
         .footer strong { color: #aaa; font-weight: 400; }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .container { padding: 48px 16px 60px; }
+            .title { font-size: clamp(32px, 9vw, 44px); }
+            .subtitle { font-size: 13px; }
+            .features { gap: 8px; }
+            .feature { padding: 14px 12px; }
+            .feature-rule { margin-bottom: 6px; }
+            .input-card { padding: 22px 18px; }
+        }
     </style>
 </head>
 <body>

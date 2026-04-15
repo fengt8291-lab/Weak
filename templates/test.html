@@ -217,6 +217,18 @@
         }
         .btn-dark:hover { background: #333; transform: translateY(-1px); }
         .btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none !important; }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .container { padding: 24px 14px 40px; }
+            .q-text { font-size: 18px; }
+            .mc-letter { width: 22px; height: 22px; font-size: 10px; }
+            .mc-text { font-size: 13px; line-height: 1.6; }
+            .mc-item { padding: 13px 14px; gap: 10px; }
+            .scale-btn { padding: 12px 2px; font-size: 12px; }
+            .q-card { padding: 22px 18px; }
+            .scale-stmt { font-size: 13px; padding: 12px 14px; }
+        }
     </style>
 </head>
 <body>
@@ -287,7 +299,7 @@ function renderQuestion(){
     if(isScale){stmtEl.style.display='block';stmtEl.innerHTML=`"${q.statement}"`;}else{stmtEl.style.display='none';}
     const container=document.getElementById('options-container');
     if(isScale){
-        container.innerHTML=`<div class="scale-labels"><span>← ${q.lowLabel}</span><span>${q.highLabel} →</span></div><div class="scale-row">${[0,1,2,3,4,5,6].map(n=>`<div class="scale-btn ${answers[currentQ]===n?'selected':''}" onclick="selectOpt(${n})">${n+1}</div>`).join('')}</div><div class="scale-note">按 1-7 选择，或使用键盘 ← → 切换</div>`;
+        container.innerHTML=`<div class="scale-labels"><span>← ${q.lowLabel}</span><span>${q.highLabel} →</span></div><div class="scale-row">${[0,1,2,3,4,5,6].map(n=>`<div class="scale-btn ${answers[currentQ]===n?'selected':''}" onclick="selectOpt(${n})">${n+1}</div>`).join('')}</div><div class="scale-note">按 1 - 7 选择，或按 ← → 键切换</div>`;
     }else{
         container.innerHTML=`<div class="mc-list">${q.opts.map((opt,i)=>`<div class="mc-item ${answers[currentQ]===i?'selected':''}" onclick="selectOpt(${i})"><span class="mc-letter">${LETTERS[i]}</span><span class="mc-text">${opt}</span></div>`).join('')}</div>`;
     }
