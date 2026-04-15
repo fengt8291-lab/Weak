@@ -1,4 +1,4 @@
-# 测测你的人性弱点 (Weak)
+# 你的人际关系隐形裂隙 (Gap)
 
 基于卡耐基《人性的弱点》的人际弱点测试网站。
 
@@ -32,7 +32,7 @@
 ## 快速开始
 
 ```bash
-cd /path/to/weak
+cd /var/www/gap
 pip install flask
 python app.py
 # 访问 http://localhost:5002

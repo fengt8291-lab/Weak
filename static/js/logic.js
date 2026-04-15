@@ -88,7 +88,7 @@ function renderReport(){
     var dimCardsHtml='';
     DIM_ORDER.forEach(function(d,i){var dd=dimData[d];var pct=h[d];var c=fc(pct);dimCardsHtml+='<div class="dim-card"><div class="dim-card-header" onclick="toggleDim('+i+')"><div class="dim-header-left"><span class="dim-num">'+(i+1)+'</span><span class="dim-name">'+dd.name+'</span></div><div class="dim-health-bar-wrap"><div class="dim-health-bar"><div class="dim-health-fill" style="width:'+pct+'%;background:'+c+'"></div></div></div><span class="dim-health-pct" style="color:'+c+'">'+pct+'%</span><span class="dim-toggle" id="dim-toggle-'+i+'">&#9660;</span></div><div class="dim-card-body" id="dim-body-'+i+'"><p class="dim-intro">'+dd.intro+'</p><p class="dim-quote">'+dd.carnegieWhy+'</p></div></div>';});
     document.getElementById('dim-cards').innerHTML=dimCardsHtml;
-    if(safeDims.length>0){var sh='';safeDims.forEach(function(kv){var sd=dimData[kv[0]];sh+='<div class="safe-item"><span class="safe-bar" style="background:'+fc(h[kv[0]])+'"></span>'+sd.name+'（'+h[kv[0]]+'%）— 这方面你表现健康</div>';});document.getElementById('safe-weakness').innerHTML=sh;}
+    if(safeDims.length>0){var sh='';safeDims.forEach(function(kv){var sd=dimData[kv[0]];sh+='<div class="safe-item"><span class="safe-bar" style="background:'+fc(h[kv[0]])+'"></span>'+sd.name+'（'+h[kv[0]]+'%）— 这方面你表现健康</div>';});document.getElementById('safe-crack').innerHTML=sh;}
     else{document.getElementById('safe-section').style.display='none';}
     renderBooks();
     var shareBtn=document.getElementById('share-btn');

@@ -1,5 +1,5 @@
 """
-测测你的人性弱点 (Weak) - Flask App
+你的人际关系隐形裂隙 (Gap) - Flask App
 基于卡内基《人性的弱点》的人际弱点测试
 """
 from flask import Flask, render_template, request, jsonify, send_from_directory
@@ -129,7 +129,7 @@ def stats():
     return jsonify({'total': total})
 
 if __name__ == '__main__':
-    print(f"Starting Weak app from {BASE_DIR}")
+    print(f"Starting Gap app from {BASE_DIR}")
     print(f"Templates: {app.template_folder}")
     print(f"DB: {DB_PATH}")
     app.run(host='0.0.0.0', port=5002, debug=False)

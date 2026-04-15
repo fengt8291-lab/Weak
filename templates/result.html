@@ -38,15 +38,15 @@ body{font-family:"Inter",-apple-system,sans-serif;background:#FAFAF8;color:#1a1a
 .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#666;padding:3px 12px;background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:20px}
 .legend-bar{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 
-/* Main Weakness Card */
-.weakness-card{border-radius:20px;padding:28px 32px;margin-bottom:20px;background:#fff;border:1px solid rgba(0,0,0,0.07);box-shadow:0 1px 3px rgba(0,0,0,0.04);position:relative;overflow:hidden}
-.weakness-card::before{content:"";position:absolute;top:0;left:32px;right:32px;height:2px;background:linear-gradient(90deg,#c9a84c,transparent)}
-.weakness-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:20px}
-.weakness-idx{font-family:"Playfair Display",serif;font-size:52px;font-weight:700;color:#f4f4f4;line-height:1;user-select:none;flex-shrink:0;min-width:56px}
-.weakness-body{flex:1}
-.weakness-name{font-family:"Cormorant Garamond",serif;font-size:24px;font-weight:700;color:#111;margin-bottom:6px}
-.weakness-desc{font-size:13px;color:#888;line-height:1.7;font-weight:300;margin-bottom:10px}
-.weakness-score-tag{display:inline-block;font-size:11px;font-weight:500;padding:5px 14px;border-radius:20px;border:1px solid;transition:all .3s;letter-spacing:0.08em;text-transform:uppercase}
+/* Main Crack Card */
+.crack-card{border-radius:20px;padding:28px 32px;margin-bottom:20px;background:#fff;border:1px solid rgba(0,0,0,0.07);box-shadow:0 1px 3px rgba(0,0,0,0.04);position:relative;overflow:hidden}
+.crack-card::before{content:"";position:absolute;top:0;left:32px;right:32px;height:2px;background:linear-gradient(90deg,#c9a84c,transparent)}
+.crack-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:20px}
+.crack-idx{font-family:"Playfair Display",serif;font-size:52px;font-weight:700;color:#f4f4f4;line-height:1;user-select:none;flex-shrink:0;min-width:56px}
+.crack-body{flex:1}
+.crack-name{font-family:"Cormorant Garamond",serif;font-size:24px;font-weight:700;color:#111;margin-bottom:6px}
+.crack-desc{font-size:13px;color:#888;line-height:1.7;font-weight:300;margin-bottom:10px}
+.crack-score-tag{display:inline-block;font-size:11px;font-weight:500;padding:5px 14px;border-radius:20px;border:1px solid;transition:all .3s;letter-spacing:0.08em;text-transform:uppercase}
 .quote-box{border-left:2px solid #c9a84c;padding:14px 18px;background:#fefcf6;border-radius:0 12px 12px 0;margin-top:18px}
 .quote-text{font-family:"Cormorant Garamond",serif;font-size:15px;font-style:italic;color:#555;line-height:1.8}
 .quote-author{font-size:11px;color:#aaa;margin-top:8px;text-align:right;letter-spacing:0.03em}
@@ -125,9 +125,9 @@ body{font-family:"Inter",-apple-system,sans-serif;background:#FAFAF8;color:#1a1a
   .hero-title{font-size:clamp(28px,8vw,38px)}
   .health-card{padding:22px 18px}
   .health-score{font-size:clamp(52px,15vw,68px)}
-  .weakness-card{padding:22px 18px}
-  .weakness-idx{font-size:clamp(40px,12vw,52px);min-width:44px}
-  .weakness-name{font-size:clamp(20px,5.5vw,24px)}
+  .crack-card{padding:22px 18px}
+  .crack-idx{font-size:clamp(40px,12vw,52px);min-width:44px}
+  .crack-name{font-size:clamp(20px,5.5vw,24px)}
   .analysis-card{padding:20px 18px}
   .quote-box{padding:12px 14px}
   .btn-row{gap:8px}
@@ -167,13 +167,13 @@ body{font-family:"Inter",-apple-system,sans-serif;background:#FAFAF8;color:#1a1a
     <div class="radar-legend" id="radar-legend"></div>
 </div>
 
-<div class="weakness-card">
-    <div class="weakness-header">
-        <div class="weakness-idx">01</div>
-        <div class="weakness-body">
-            <div class="weakness-name" id="main-name">--</div>
-            <div class="weakness-desc" id="main-desc">--</div>
-            <span class="weakness-score-tag" id="main-score-tag">--</span>
+<div class="crack-card">
+    <div class="crack-header">
+        <div class="crack-idx">01</div>
+        <div class="crack-body">
+            <div class="crack-name" id="main-name">--</div>
+            <div class="crack-desc" id="main-desc">--</div>
+            <span class="crack-score-tag" id="main-score-tag">--</span>
         </div>
     </div>
     <div class="quote-box">
@@ -216,7 +216,7 @@ body{font-family:"Inter",-apple-system,sans-serif;background:#FAFAF8;color:#1a1a
 
 <div class="section-rule"><span class="section-title">你的安全区</span></div>
 <div class="analysis-card" id="safe-section">
-    <div class="safe-card" id="safe-weakness"></div>
+    <div class="safe-card" id="safe-crack"></div>
 </div>
 
 <div class="section-rule"><span class="section-title">延伸阅读</span></div>
