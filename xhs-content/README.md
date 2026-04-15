@@ -1,1 +1,33 @@
-IyDlsI/nuqLkuabmjqjlub/mlofmoYgKCuWtmOaUviBHYXAg6aG555uu55qE5bCP57qi5Lmm5o6o5bm/5paH5qGI44CCCgojIyDmlofku7bor7TmmI4KCnwg5paH5Lu2IHwg6KeS5bqmIHwg6YCC55So5Zy65pmvIHwKfC0tLS0tLXwtLS0tLS18LS0tLS0tLS0tLXwKfCAwMDEt5YWz57O75L+u5aSN57G7Lm1kIHwg5YWz57O75Zuw5oOR44CB5oOz5pS55ZaE5Lq6576kIHwg5byV5Y+R5YWx6bij5ZKM6K+E6K665LqS5YqoIHwKfCAwMDIt6Ieq5oiR6K6k55+l57G7Lm1kIHwg6Ieq5oiR5o6i57Si44CB5aW95aWH5b+D5Lq6576kIHwg5aW95aWH5b+D6amx5Yqo77yM566X5rOV5YiG5Y+R5Y+L5aW9IHwKfCAwMDMt5Zy65pmv5pWF5LqL57G7Lm1kIHwg5a625bqtL+S7o+mZheWFs+ezu+WIh+WFpSB8IOWItumAoOi9rOWPkeWGsuWKqO+8jOaci+WPi+WciOaJqeaVoyB8CgojIyDkvb/nlKjor7TmmI4KCiMjIyDlj5HluIPoioLlpY/lu7rorq4KLSAqKuesrDHnr4cqKu+8muWFiOWPkSAwMDIt6Ieq5oiR6K6k55+l57G777yI5aW95aWH5b+D5by677yM566X5rOV5Y+L5aW977yJCi0gKirnrKwy56+HKirvvJrlho3lj5EgMDAxLeWFs+ezu+S/ruWkjeexu++8iOa3seW6puWFseaDhe+8jOenr+e0r+eyieS4ne+8iQotICoq56ysM+evhyoq77yaMDAzLeWcuuaZr+aVheS6i+exu++8iOi9rOWPkeWvvOWQke+8jOaJqeWkp+imhueblu+8iQoKIyMjIOavj+evh+aTjeS9nOa1geeoiwoxLiDlpI3liLbmlofmoYjvvIzmm7/mjaLmlofmnKvpk77mjqXkuLrlrp7pmYXllYblk4HpobUKMi4g5oyJ5qCH562+5Y+R5biD77yI5bu66K6uMTXkuKrmoIfnrb7vvIzlj4LogIPlkITmlofku7blupXpg6jvvIkKMy4g5Y+R5a6M5ZCO5oiq5Zu+5a2Y5qGj5Yiw5pys5ZywCgojIyMg5bCB6Z2i5Yi25L2c5Y+C6ICDCi0g6aOO5qC877ya6I6r5YWw6L+q6Imy57O7ICsg6YeR6ImyL+aaluiJsuiwgwotIOWtl+S9k++8muWkp+WPt+eyl+S9k++8jOS4reaWh+S8mOWFiAotIOaWh+Wtl+S4jeimgei2hei/hzXkuKrlhbPplK7or40KLSDog4zmma/oibLlu7rorq7vvJojMWExYTFh77yI5rex6Imy77yJ5oiWICNmYWZhZjjvvIjmtYXnsbPvvIkKCiMjIOaWh+ahiOabtOaWsOiusOW9lQoKLSAyMDI2LTA0LTE177ya5Yid54mIM+evh++8iOS6keWbvuWIm+S9nO+8iQo=
+# 小红书推广文案
+
+存放 Gap 项目的小红书推广文案。
+
+## 文件说明
+
+| 文件 | 角度 | 适用场景 |
+|------|------|----------|
+| 001-关系修复类.md | 关系困惑、想改善人群 | 引发共鸣和评论互动 |
+| 002-自我认知类.md | 自我探索、好奇心人群 | 好奇心驱动，算法分发友好 |
+| 003-场景故事类.md | 家庭/代际关系切入 | 制造转发冲动，朋友圈扩散 |
+
+## 使用说明
+
+### 发布节奏建议
+- **第1篇**：先发 002-自我认知类（好奇心强，算法友好）
+- **第2篇**：再发 001-关系修复类（深度共情，积累粉丝）
+- **第3篇**：003-场景故事类（转发导向，扩大覆盖）
+
+### 每篇操作流程
+1. 复制文案，替换文末链接为实际商品页
+2. 按标签发布（建议15个标签，参考各文件底部）
+3. 发完后截图存档到本地
+
+### 封面制作参考
+- 风格：莫兰迪色系 + 金色/暖色调
+- 字体：大号粗体，中文优先
+- 文字不要超过5个关键词
+- 背景色建议：#1a1a1a（深色）或 #fafaf8（浅米）
+
+## 文案更新记录
+
+- 2026-04-15：初版3篇（云图创作）
