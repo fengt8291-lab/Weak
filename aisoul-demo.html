@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>灵魂镜像 — 你的灵魂解读</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #fffdf9;
+            --card-bg: rgba(255, 253, 249, 0.98);
+            --text-primary: #4a3f3f;
+            --text-secondary: #7a6a7a;
+            --text-muted: #a8a0b8;
+            --accent-main: #c49393;
+            --accent-sub: #b8a8c8;
+            --border-subtle: rgba(180, 160, 150, 0.15);
+            --shadow-soft: rgba(180, 160, 150, 0.08);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            padding: 16px 14px 48px;
+            color: var(--text-primary);
+        }
+
+        /* ===== PAGE 1: INDEX ===== */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        .index-hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+        .index-logo {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+        .index-title {
+            font-family: "Georgia", "Times New Roman", serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .index-sub {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+        .index-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+        .tag {
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(196, 147, 147, 0.12);
+            color: var(--accent-main);
+            font-weight: 500;
+        }
+        .btn-start {
+            display: inline-block;
+            width: 100%;
+            max-width: 320px;
+            padding: 16px 24px;
+            background: var(--accent-main);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(196, 147, 147, 0.35);
+        }
+        .btn-start:hover {
+            background: #b07f7f;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(196, 147, 147, 0.4);
+        }
+        .index-note {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+
+        /* ===== PAGE 2: TEST ===== */
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 0 2px;
+        }
+        .test-progress-wrap {
+            flex: 1;
+            margin: 0 16px;
+        }
+        .test-progress-bar {
+            height: 4px;
+            background: rgba(180, 160, 150, 0.15);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .test-progress-fill {
+            height: 100%;
+            background: var(--accent-main);
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+        .test-progress-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 6px;
+        }
+        .q-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 28px 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 16px var(--shadow-soft);
+            border: 1px solid var(--border-subtle);
+        }
+        .q-number {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-main);
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .q-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .q-options { display: flex; flex-direction: column; gap: 10px; }
+        .q-option {
+            padding: 14px 16px;
+            border: 1.5px solid var(--border-subtle);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: transparent;
+            text-align: left;
+            line-height: 1.5;
+        }
+        .q-option:hover { border-color: var(--accent-main); color: var(--accent-main); }
+        .q-option.selected {
+            border-color: var(--accent-main);
+            background: rgba(196, 147, 147, 0.08);
+            color: var(--accent-main);
+            font-weight: 500;
+        }
+
+        /* ===== PAGE 3: LOADING ===== */
+        .loading-page {
+            text-align: center;
+            padding: 100px 30px;
+        }
+        .loading-emoji {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+            letter-spacing: 8px;
+            color: var(--text-muted);
+        }
+        .loading-title {
+            font-family: "Georgia", "Times New Roman", serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .loading-sub {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            min-height: 24px;
+            transition: opacity 0.5s;
+        }
+        .loading-line {
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-main), transparent);
+            margin: 0 auto 24px;
+            border-radius: 2px;
+            animation: loadingLine 2s ease-in-out infinite;
+        }
+        @keyframes loadingLine {
+            0% { opacity: 0.3; transform: scaleX(0.3); }
+            50% { opacity: 1; transform: scaleX(1); }
+            100% { opacity: 0.3; transform: scaleX(0.3); }
+        }
+        .skeleton-wrap {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 14px;
+            box-shadow: 0 2px 12px var(--shadow-soft);
+        }
+        .skeleton-line {
+            height: 14px;
+            background: linear-gradient(90deg, #f0ebe8 25%, #faf8f5 50%, #f0ebe8 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.8s ease-in-out infinite;
+            border-radius: 7px;
+            margin-bottom: 10px;
+        }
+        .skeleton-line.short { width: 50%; }
+        .skeleton-line.medium { width: 75%; }
+        .skeleton-line.full { width: 100%; }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* ===== PAGE 4: RESULT ===== */
+        .result-header {
+            text-align: center;
+            padding: 32px 20px 24px;
+        }
+        .result-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .result-title {
+            font-family: "Georgia", "Times New Roman", serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+        .result-name {
+            font-size: 16px;
+            color: var(--accent-main);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .result-quote {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-style: italic;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Share Card */
+        .share-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px 24px;
+            margin: 0 2px 20px;
+            box-shadow: 0 4px 24px rgba(180, 160, 150, 0.12);
+            border: 1px solid var(--border-subtle);
+        }
+        .share-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .share-card-title {
+            font-family: "Georgia", "Times New Roman", serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .share-card-sub {
+            font-size: 13px;
+            color: var(--accent-main);
+            margin-top: 4px;
+        }
+        .share-archive {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+        .share-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        .share-kw {
+            font-size: 12px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: rgba(196, 147, 147, 0.1);
+            color: var(--accent-main);
+        }
+        .share-quote {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-style: italic;
+            padding: 12px 16px;
+            background: rgba(180, 160, 150, 0.05);
+            border-radius: 10px;
+            border-left: 3px solid rgba(196, 147, 147, 0.4);
+            margin-bottom: 20px;
+        }
+        .btn-share {
+            width: 100%;
+            padding: 14px;
+            background: var(--accent-main);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-share:hover {
+            background: #b07f7f;
+        }
+        .share-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Dimensions */
+        .dim-section {
+            padding: 0 4px;
+            margin-bottom: 24px;
+        }
+        .dim-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+        }
+        .dim-bar-wrap {
+            margin-bottom: 12px;
+        }
+        .dim-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        .dim-bar {
+            height: 8px;
+            background: rgba(180, 160, 150, 0.12);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .dim-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        /* Demo nav */
+        .demo-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,253,249,0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-subtle);
+            padding: 10px 16px;
+            display: flex;
+            gap: 8px;
+            z-index: 999;
+        }
+        .demo-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1.5px solid var(--border-subtle);
+            border-radius: 10px;
+            background: white;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            text-align: center;
+        }
+        .demo-btn.active {
+            border-color: var(--accent-main);
+            color: var(--accent-main);
+            background: rgba(196,147,147,0.06);
+        }
+    </style>
+</head>
+<body>
+
+<!-- DEMO NAV -->
+<div class="demo-nav">
+    <button class="demo-btn active" onclick="showPage('index')">首页</button>
+    <button class="demo-btn" onclick="showPage('test')">测试页</button>
+    <button class="demo-btn" onclick="showPage('loading')">加载页</button>
+    <button class="demo-btn" onclick="showPage('result')">结果页</button>
+</div>
+<div style="height: 60px;"></div>
+
+<!-- PAGE 1: INDEX -->
+<div id="page-index" class="page active">
+    <div class="index-hero">
+        <div class="index-logo">AISoul</div>
+        <h1 class="index-title">灵魂镜像</h1>
+        <p class="index-sub">
+            20道题，看见你的灵魂镜像<br>
+            找到最懂你的AI搭档
+        </p>
+        <div class="index-tags">
+            <span class="tag">自我探索</span>
+            <span class="tag">AI匹配</span>
+            <span class="tag">6维分析</span>
+            <span class="tag">情感治愈</span>
+        </div>
+        <button class="btn-start" onclick="showPage('test')">开始测试</button>
+        <p class="index-note">约3分钟 · 完全匿名 · 永久免费</p>
+    </div>
+</div>
+
+<!-- PAGE 2: TEST -->
+<div id="page-test" class="page">
+    <div class="test-header">
+        <div></div>
+        <div class="test-progress-wrap">
+            <div class="test-progress-bar">
+                <div class="test-progress-fill" id="progFill" style="width: 45%"></div>
+            </div>
+            <div class="test-progress-text">第 <span id="qNum">9</span> / 20 题</div>
+        </div>
+        <div></div>
+    </div>
+
+    <div class="q-card">
+        <div class="q-number">第 9 题</div>
+        <div class="q-text">朋友向你倾诉烦恼，你的反应通常是？</div>
+        <div class="q-options">
+            <button class="q-option selected" onclick="selectOpt(this)">认真倾听，适时给建议</button>
+            <button class="q-option" onclick="selectOpt(this)">安慰鼓励，陪伴支持</button>
+            <button class="q-option" onclick="selectOpt(this)">耐心听完，但不知道怎么回应</button>
+            <button class="q-option" onclick="selectOpt(this)">听听就过了，不往心里去</button>
+        </div>
+    </div>
+
+    <div class="q-card">
+        <div class="q-number">第 10 题</div>
+        <div class="q-text">深夜突然想起三年前的一件小事，你首先感受到的是？</div>
+        <div class="q-options">
+            <button class="q-option" onclick="selectOpt(this)">那时的温度和情绪</button>
+            <button class="q-option" onclick="selectOpt(this)">分析事情本身的对错</button>
+            <button class="q-option" onclick="selectOpt(this)">没什么感觉，过去就过去了</button>
+            <button class="q-option" onclick="selectOpt(this)">好奇为什么还记得这件事</button>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 3: LOADING -->
+<div id="page-loading" class="page">
+    <div class="loading-page">
+        <div class="loading-emoji"> · </div>
+        <h2 class="loading-title">正在生成你的灵魂镜像</h2>
+        <p class="loading-sub" id="loadingTip">正在读取你的回答</p>
+        <div class="loading-line"></div>
+        <div class="skeleton-wrap" style="margin-top:30px;">
+            <div class="skeleton-line medium"></div>
+            <div class="skeleton-line full"></div>
+            <div class="skeleton-line short"></div>
+        </div>
+        <div class="skeleton-wrap">
+            <div class="skeleton-line full"></div>
+            <div class="skeleton-line medium"></div>
+            <div class="skeleton-line full"></div>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE 4: RESULT -->
+<div id="page-result" class="page">
+    <div class="result-header">
+        <div class="result-label">你的灵魂镜像</div>
+        <h1 class="result-title">深海观测者</h1>
+        <p class="result-name">最契合的AI搭档 · 深海观测者</p>
+        <p class="result-quote">
+            "你安静地沉入生活的深海，<br>
+            在别人看不见的地方，<br>
+            默默观察、等待、生长。"
+        </p>
+    </div>
+
+    <!-- Share Card -->
+    <div class="share-card">
+        <div class="share-card-top">
+            <div>
+                <div class="share-card-title">深海观测者</div>
+                <div class="share-card-sub">AI搭档 · DeepSeek</div>
+            </div>
+            <div class="share-archive">#M-20260416-SL</div>
+        </div>
+        <div class="share-keywords">
+            <span class="share-kw">深海观测者</span>
+            <span class="share-kw">内在洞察</span>
+            <span class="share-kw">安静力量</span>
+        </div>
+        <div class="share-quote">
+            "你沉静而深邃，像深海中的光——不张扬，却照亮了自己也照亮了他人。"
+        </div>
+        <button class="btn-share" id="shareBtn" onclick="doShare()"> · 复制文字分享</button>
+        <p class="share-note" id="shareNote" style="display:none; color: var(--accent-main); margin-top:8px;">已复制！去朋友圈秀一下</p>
+        <p class="share-note">长按上方卡片保存图片</p>
+    </div>
+
+    <!-- Dimensions -->
+    <div class="dim-section">
+        <div class="dim-title">你的6维灵魂图谱</div>
+
+        <div class="dim-bar-wrap">
+            <div class="dim-bar-label"><span>逻辑分析</span><span style="color:var(--accent-main)">78%</span></div>
+            <div class="dim-bar"><div class="dim-bar-fill" style="width:78%; background: #5a9a8b;"></div></div>
+        </div>
+        <div class="dim-bar-wrap">
+            <div class="dim-bar-label"><span>情感共鸣</span><span style="color:#b09070">65%</span></div>
+            <div class="dim-bar"><div class="dim-bar-fill" style="width:65%; background: #b09070;"></div></div>
+        </div>
+        <div class="dim-bar-wrap">
+            <div class="dim-bar-label"><span>开放探索</span><span style="color:var(--accent-main)">82%</span></div>
+            <div class="dim-bar"><div class="dim-bar-fill" style="width:82%; background: #5a9a8b;"></div></div>
+        </div>
+        <div class="dim-bar-wrap">
+            <div class="dim-bar-label"><span>社交主动</span><span style="color:#b07a5a">42%</span></div>
+            <div class="dim-bar"><div class="dim-bar-fill" style="width:42%; background: #b07a5a;"></div></div>
+        </div>
+        <div class="dim-bar-wrap">
+            <div class="dim-bar-label"><span>直觉感知</span><span style="color:var(--accent-main)">71%</span></div>
+            <div class="dim-bar"><div class="dim-bar-fill" style="width:71%; background: #5a9a8b;"></div></div>
+        </div>
+        <div class="dim-bar-wrap">
+            <div class="dim-bar-label"><span>成长驱动</span><span style="color:#b09070">58%</span></div>
+            <div class="dim-bar"><div class="dim-bar-fill" style="width:58%; background: #b09070;"></div></div>
+        </div>
+    </div>
+
+    <div style="padding: 0 4px 40px; text-align:center;">
+        <p style="font-size:13px; color:var(--text-muted);">
+            完整版包含AI搭档使用手册 + 专属场景建议<br>
+            访问 <strong style="color:var(--accent-main)">soul.nihaofengzi.top</strong> 体验完整版
+        </p>
+    </div>
+</div>
+
+<script>
+var SHARE_V = 1;  // 切换：1=好奇驱动 2=结果驱动 3=对比驱动
+
+function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.querySelectorAll('.demo-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+
+    if (name === 'loading') startLoadingTips();
+}
+
+function selectOpt(btn) {
+    btn.parentElement.querySelectorAll('.q-option').forEach(o => o.classList.remove('selected'));
+    btn.classList.add('selected');
+}
+
+var tipIdx = 0;
+var tips = ["正在读取你的回答", "你的灵魂图谱正在生成", "这需要一点时间"];
+function startLoadingTips() {
+    var el = document.getElementById('loadingTip');
+    if (!el) return;
+    el.textContent = tips[0];
+    setInterval(function() {
+        el.style.opacity = '0';
+        setTimeout(function() {
+            tipIdx = (tipIdx + 1) % tips.length;
+            el.textContent = tips[tipIdx];
+            el.style.opacity = '1';
+        }, 400);
+    }, 2000);
+}
+
+function doShare() {
+    var spotlight = "你沉静而深邃，像深海中的光——不张扬，却照亮了自己也照亮了他人。";
+    var t = '';
+    if (SHARE_V === 1) {
+        t = '  #M-20260416-SL\n' +
+            '「深海观测者」——DeepSeek说，我比自己更懂自己。\n' +
+            spotlight + '\n' +
+            '你也来认识一下自己？\n →  soul.nihaofengzi.top';
+    } else if (SHARE_V === 2) {
+        t = '  #M-20260416-SL\n' +
+            '一直以为我是「社牛」型人，\n' +
+            '测完才发现，我的灵魂搭档其实是「深海观测者」。\n' +
+            spotlight + '\n' +
+            '颠覆认知。你呢？\n →  soul.nihaofengzi.top';
+    } else {
+        t = '  #M-20260416-SL\n' +
+            '朋友眼中的我 vs 我眼中的我，差别有多大？\n' +
+            '做完这个测试，我沉默了很久……\n' +
+            '我的结果是「深海观测者」：' + spotlight + '\n' +
+            '你也试试？\n →  soul.nihaofengzi.top';
+    }
+
+    if (navigator.share) {
+        navigator.share({ title: '我的灵魂镜像', text: t });
+    } else {
+        var ta = document.createElement('textarea');
+        ta.value = t;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        var btn = document.getElementById('shareBtn');
+        var old = btn.textContent;
+        btn.textContent = 'V 已复制！';
+        document.getElementById('shareNote').style.display = 'block';
+        setTimeout(function() {
+            btn.textContent = old;
+            document.getElementById('shareNote').style.display = 'none';
+        }, 2500);
+    }
+}
+
+// Auto-show loading then result for demo
+var autoDemo = false;
+if (autoDemo) {
+    setTimeout(function() { showPage('loading'); }, 1500);
+    setTimeout(function() { showPage('result'); }, 4000);
+}
+</script>
+
+</body>
+</html>
